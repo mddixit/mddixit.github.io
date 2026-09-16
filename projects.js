@@ -52,8 +52,7 @@ window.PROJECTS = [
       "Designed and iterated the robot, contributing to <strong>soft actuator fabrication</strong>, <strong>custom PCB design</strong>, and <strong>closed-loop control</strong>.",
       "Worked on the <strong>neural control</strong> that drives the robot's swallowing behavior.",
       "Prototyped and experimentally evaluated designs, contributing to submissions to <strong>IEEE/RSJ IROS</strong> and <strong>IEEE ICRA</strong>.",
-      "Co-authored and presented the SLUGBOT V2 poster at the <strong>Midwest Robotics Workshop</strong> and the <strong>2026 NIH BRAIN Initiative Conference</strong>.",
-      "Separately, built a <strong>computer-vision pipeline in OpenCV</strong> to automatically characterize the locomotion of the lab's snake robot."
+      "Co-authored and presented the SLUGBOT V2 poster at the <strong>Midwest Robotics Workshop</strong> and the <strong>2026 NIH BRAIN Initiative Conference</strong>."
     ],
     results: [
       { value: "6 → 30.5 mm", label: "grasper translation, V1 → V2" },
