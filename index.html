@@ -9,7 +9,605 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css">
+<!-- Site design (built in so the page always looks right) -->
+<style>
+:root {
+  --bg: #FFF7EE;
+  --surface: #FFFFFF;
+  --ink: #16132B;
+  --muted: #5B5873;
+  --line: #16132B;
+  --coral: #EC6F6F;
+  --blue: #5B74E4;
+  --sun: #F4C766;
+  --teal: #44B8A6;
+  --violet: #9A84EE;
+  --on-accent: #16132B;
+  --border: rgba(22, 19, 43, 0.12);
+  --shadow: 0 6px 24px rgba(22, 19, 43, 0.07);
+  --shadow-sm: 0 2px 8px rgba(22, 19, 43, 0.08);
+  --shadow-lg: 0 14px 36px rgba(22, 19, 43, 0.12);
+  --tint: 20%;
+  --radius: 22px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #15142A; --surface: #1F1D38; --ink: #F6F1EA; --muted: #B3AFCF; --line: #F6F1EA;
+    --coral: #F08A8A; --blue: #8196F0; --sun: #F2CF82; --teal: #6CCBBB; --violet: #B09EF5;
+    --border: rgba(255, 255, 255, 0.10);
+    --shadow: 0 6px 24px rgba(0, 0, 0, 0.30); --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3); --shadow-lg: 0 14px 36px rgba(0, 0, 0, 0.45);
+    --tint: 16%;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #15142A; --surface: #1F1D38; --ink: #F6F1EA; --muted: #B3AFCF; --line: #F6F1EA;
+  --coral: #F08A8A; --blue: #8196F0; --sun: #F2CF82; --teal: #6CCBBB; --violet: #B09EF5;
+  --border: rgba(255, 255, 255, 0.10);
+  --shadow: 0 6px 24px rgba(0, 0, 0, 0.30); --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3); --shadow-lg: 0 14px 36px rgba(0, 0, 0, 0.45);
+  --tint: 16%;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: "DM Sans", system-ui, sans-serif; font-size: 17px; line-height: 1.6;
+  overflow-x: hidden;
+}
+h1, h2, h3, .display { font-family: "Bricolage Grotesque", "DM Sans", sans-serif; line-height: 1.05; letter-spacing: -0.02em; }
+a { color: inherit; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+/* ---------- Nav ---------- */
+header.nav {
+  position: sticky; top: 0; z-index: 50;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+.nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 68px; gap: 16px; }
+.logo {
+  font-family: "Bricolage Grotesque", sans-serif; font-weight: 700; font-size: 19px; text-decoration: none;
+  display: flex; align-items: center; gap: 10px;
+}
+.logo span.badge {
+  display: grid; place-items: center; width: 36px; height: 36px; border-radius: 10px;
+  background: var(--coral); color: #fff; font-size: 14px;
+}
+.nav ul { list-style: none; display: flex; gap: 6px; align-items: center; }
+.nav ul a {
+  text-decoration: none; font-weight: 500; padding: 8px 14px; border-radius: 999px; font-size: 15px;
+}
+.nav ul a:hover { background: var(--sun); color: var(--on-accent); }
+.theme-btn, .menu-btn {
+  border: 1px solid var(--border); background: var(--surface); color: var(--ink);
+  width: 40px; height: 40px; border-radius: 12px; cursor: pointer; font-size: 18px;
+  display: grid; place-items: center;
+}
+.menu-btn { display: none; }
+.theme-btn svg { display: block; }
+@media (max-width: 820px) {
+  .menu-btn { display: grid; }
+  .nav ul {
+    position: absolute; top: 68px; left: 0; right: 0; flex-direction: column; align-items: stretch;
+    background: var(--bg); border-bottom: 1px solid var(--border); padding: 12px 16px 18px; gap: 4px;
+    display: none;
+  }
+  .nav ul.open { display: flex; }
+  .nav ul a { display: block; font-size: 18px; }
+}
+
+/* ---------- Hero ---------- */
+.hero { position: relative; padding: 88px 0 72px; overflow: hidden; }
+.blob { position: absolute; border-radius: 50%; filter: blur(2px); opacity: .35; z-index: 0; }
+.blob.b1 { width: 340px; height: 340px; background: var(--sun); right: -80px; top: 40px; }
+.blob.b2 { width: 180px; height: 180px; background: var(--teal); right: 260px; top: 300px; }
+.blob.b3 { width: 110px; height: 110px; background: var(--violet); right: 90px; top: 380px; }
+.hero .wrap { position: relative; z-index: 1; }
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px; font-weight: 500;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 999px;
+  padding: 6px 14px; font-size: 14px; box-shadow: var(--shadow-sm);
+}
+.eyebrow .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--teal); }
+.hero h1 { font-size: clamp(42px, 7.2vw, 86px); font-weight: 700; margin: 26px 0 18px; }
+.hero h1 .hl { color: var(--coral); }
+.hero .lede { font-size: clamp(19px, 2.4vw, 25px); max-width: 640px; color: var(--ink); }
+.hero .lede mark {
+  background: linear-gradient(transparent 55%, var(--sun) 55%); color: inherit; padding: 0 2px;
+}
+.cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 34px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-weight: 500;
+  padding: 13px 22px; border-radius: 14px; border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm); transition: transform .15s, box-shadow .15s;
+}
+.btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+.btn.primary { background: var(--coral); color: #16132B; border-color: transparent; }
+.btn.secondary { background: var(--surface); color: var(--ink); }
+
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 64px; }
+.stat {
+  border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow);
+  color: var(--on-accent);
+}
+.stat { color: var(--ink); background: color-mix(in srgb, var(--c) var(--tint), var(--surface)); border-top: 4px solid var(--c); }
+.stat:nth-child(1) { --c: var(--sun); }
+.stat:nth-child(2) { --c: var(--teal); }
+.stat:nth-child(3) { --c: var(--blue); }
+.stat:nth-child(4) { --c: var(--coral); }
+.stat b { display: block; font-family: "Bricolage Grotesque", sans-serif; font-size: 36px; font-weight: 700; line-height: 1; }
+.stat b.sm { font-size: 28px; }
+.stat span { font-size: 14px; font-weight: 500; display: block; margin-top: 8px; }
+@media (max-width: 820px) { .stats { grid-template-columns: repeat(2, 1fr); } .blob.b2, .blob.b3 { display: none; } }
+
+/* ---------- Marquee ---------- */
+.marquee {
+  background: var(--surface); color: var(--ink); border-block: 1px solid var(--border);
+  overflow: hidden; white-space: nowrap; padding: 14px 0;
+}
+.marquee .track { display: inline-block; animation: scroll 32s linear infinite; }
+.marquee span { font-family: "Bricolage Grotesque", sans-serif; font-weight: 500; font-size: 18px; margin: 0 18px; }
+.marquee span.star { color: var(--coral); }
+@keyframes scroll { to { transform: translateX(-50%); } }
+
+/* ---------- Sections ---------- */
+section.block { padding: 96px 0; }
+.sec-head { display: flex; align-items: center; gap: 16px; margin-bottom: 40px; flex-wrap: wrap; }
+.sec-head .num {
+  font-family: "Bricolage Grotesque", sans-serif; font-weight: 600; font-size: 14px;
+  background: var(--ink); color: var(--bg); padding: 4px 12px; border-radius: 999px;
+}
+.sec-head h2 { font-size: clamp(32px, 4.6vw, 48px); font-weight: 700; }
+
+/* About */
+.about-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: start; }
+.about-grid p { font-size: 19px; margin-bottom: 16px; }
+.edu-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  box-shadow: var(--shadow); padding: 26px;
+}
+.edu-item + .edu-item { margin-top: 20px; padding-top: 20px; border-top: 2px dashed color-mix(in srgb, var(--ink) 30%, transparent); }
+.edu-item h3 { font-size: 22px; }
+.edu-item .meta { color: var(--muted); font-size: 15px; margin: 4px 0 8px; }
+.pill {
+  display: inline-block; font-size: 12.5px; font-weight: 500; padding: 3px 10px; border-radius: 999px;
+  color: var(--ink); background: color-mix(in srgb, var(--c) 28%, var(--surface));
+}
+.pill.sun { --c: var(--sun); } .pill.teal { --c: var(--teal); }
+.pill.coral { --c: var(--coral); } .pill.blue { --c: var(--blue); }
+.pill.violet { --c: var(--violet); }
+@media (max-width: 820px) { .about-grid { grid-template-columns: 1fr; } }
+
+/* Projects */
+.projects { display: grid; grid-template-columns: repeat(6, 1fr); gap: 22px; }
+.card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  box-shadow: var(--shadow); overflow: hidden; display: flex; flex-direction: column;
+  transition: transform .2s, box-shadow .2s;
+}
+.card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.card .art { height: 190px; position: relative; border-bottom: 1px solid var(--border); overflow: hidden; }
+.card .art svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.card .body { padding: 24px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.card h3 { font-size: 23px; font-weight: 700; }
+.card .role { color: var(--muted); font-size: 14px; font-weight: 500; }
+.card ul { padding-left: 18px; color: var(--ink); }
+.card li { margin-bottom: 6px; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 8px; }
+.tag {
+  font-size: 12.5px; font-weight: 500; padding: 3px 10px; border-radius: 999px;
+  background: color-mix(in srgb, var(--ink) 8%, transparent);
+}
+.span-4 { grid-column: span 4; } .span-2 { grid-column: span 2; } .span-3 { grid-column: span 3; }
+.card.feature .art { height: 100%; min-height: 260px; border-bottom: 0; border-right: 1px solid var(--border); }
+.card.feature { flex-direction: row; }
+.card.feature .art { flex: 0 0 42%; }
+@media (max-width: 960px) {
+  .projects { grid-template-columns: 1fr 1fr; }
+  .span-4, .span-2, .span-3 { grid-column: span 1; }
+  .card.feature { grid-column: 1 / -1; }
+}
+@media (max-width: 640px) {
+  .projects { grid-template-columns: 1fr; }
+  .card.feature { flex-direction: column; }
+  .card.feature .art { flex: none; height: 200px; min-height: 0; border-right: 0; border-bottom: 1px solid var(--border); }
+}
+
+/* Timeline */
+.timeline { display: grid; gap: 22px; }
+.job {
+  display: grid; grid-template-columns: 220px 1fr; gap: 28px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  box-shadow: var(--shadow); padding: 28px; position: relative; overflow: hidden;
+}
+.job::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: var(--c, var(--coral)); }
+.job .when { font-weight: 700; font-size: 15px; padding-left: 8px; }
+.job .when small { display: block; color: var(--muted); font-weight: 500; margin-top: 4px; }
+.job h3 { font-size: 22px; font-weight: 700; }
+.job .org { font-weight: 500; color: var(--muted); margin: 4px 0 12px; }
+.job ul { padding-left: 18px; }
+.job li { margin-bottom: 6px; }
+@media (max-width: 720px) { .job { grid-template-columns: 1fr; gap: 10px; } }
+
+/* Skills */
+.skills { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.skill-box { border: 1px solid var(--border); border-radius: var(--radius); padding: 26px; box-shadow: var(--shadow); color: var(--ink); background: color-mix(in srgb, var(--c) var(--tint), var(--surface)); border-top: 4px solid var(--c); }
+.skill-box h3 { font-size: 21px; font-weight: 700; margin-bottom: 16px; }
+.skill-box .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.skill-box .chips span {
+  background: var(--surface); color: var(--ink); border: 1px solid var(--border);
+  border-radius: 999px; padding: 4px 12px; font-size: 14px; font-weight: 500;
+}
+.skill-box.s1 { --c: var(--sun); }
+.skill-box.s2 { --c: var(--teal); }
+.skill-box.s3 { --c: var(--violet); }
+@media (max-width: 900px) { .skills { grid-template-columns: 1fr; } }
+
+/* Beyond */
+.beyond { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 22px; }
+.mini {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px;
+  box-shadow: var(--shadow);
+}
+.mini .icon { font-size: 30px; margin-bottom: 8px; }
+.mini h3 { font-size: 21px; margin-bottom: 8px; }
+.mini p, .mini li { color: var(--muted); font-size: 15.5px; }
+.mini ul { padding-left: 18px; }
+@media (max-width: 900px) { .beyond { grid-template-columns: 1fr; } }
+
+/* Contact */
+.contact {
+  background: #4B63D3; color: #fff; border: 1px solid var(--border); border-radius: 32px;
+  padding: clamp(32px, 6vw, 72px); box-shadow: var(--shadow-lg); position: relative; overflow: hidden;
+}
+.contact::after {
+  content: ""; position: absolute; width: 280px; height: 280px; border-radius: 50%;
+  background: #fff; opacity: .12; right: -80px; bottom: -110px;
+}
+.contact h2 { font-size: clamp(34px, 5vw, 56px); font-weight: 700; max-width: 760px; position: relative; z-index: 1; }
+.contact p { font-size: 20px; margin: 18px 0 30px; max-width: 560px; position: relative; z-index: 1; }
+.contact .cta { position: relative; z-index: 1; margin-top: 0; }
+.contact .btn.primary { background: #fff; color: #16132B; }
+.contact .btn.secondary { background: transparent; color: #fff; border-color: rgba(255,255,255,.5); box-shadow: none; }
+
+footer { padding: 40px 0 56px; color: var(--muted); font-size: 14px; }
+footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+
+/* Reveal */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .marquee .track { animation: none; }
+  .btn, .card { transition: none; }
+}
+@media (max-width: 480px) {
+  .wrap { padding: 0 16px; }
+  .hero { padding-top: 56px; }
+  .blob.b1 { width: 220px; height: 220px; right: -90px; top: 10px; }
+  .stat b { font-size: 32px; }
+  section.block { padding: 72px 0; }
+}
+
+/* =====================================================================
+   Project cards (homepage)
+   ===================================================================== */
+a.card { text-decoration: none; color: inherit; }
+.card.half { grid-column: span 3; }
+.card.feature { grid-column: 1 / -1; }
+.card .art img, .p-cover img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.art-fallback, .art-fallback svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.art-initial {
+  position: absolute; inset: 0; display: grid; place-items: center;
+  font-family: "Bricolage Grotesque", sans-serif; font-size: 96px; font-weight: 700; color: rgba(22,19,43,.35);
+}
+.card .summary { color: var(--muted); font-size: 16px; }
+.card .more { font-weight: 500; color: var(--ink); margin-top: 6px; display: inline-flex; gap: 6px; }
+.card .more span { transition: transform .2s; }
+.card:hover .more span { transform: translateX(4px); }
+.card:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+@media (max-width: 960px) { .card.half { grid-column: span 1; } }
+
+/* =====================================================================
+   Project page
+   ===================================================================== */
+.p-hero { padding: 56px 0 36px; }
+.back {
+  display: inline-block; text-decoration: none; color: var(--muted); font-weight: 500; font-size: 15px;
+  margin-bottom: 26px;
+}
+.back:hover { color: var(--ink); }
+.p-hero .pill { display: table; }
+.p-title { font-size: clamp(36px, 5.6vw, 64px); font-weight: 700; margin: 16px 0 14px; max-width: 900px; }
+.p-lede { font-size: clamp(18px, 2vw, 21px); max-width: 760px; color: var(--muted); }
+.p-meta {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 16px 28px;
+  margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border);
+}
+.p-meta dt { font-size: 12.5px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 500; }
+.p-meta dd { font-weight: 500; margin-top: 2px; }
+
+.p-cover {
+  position: relative; height: clamp(240px, 42vw, 460px); border-radius: 28px; overflow: hidden;
+  border: 1px solid var(--border); box-shadow: var(--shadow);
+}
+.p-cover > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+.p-results { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 22px; }
+.p-results .stat { padding: 22px; }
+
+.p-body { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 48px; margin-top: 56px; align-items: start; }
+.p-sec + .p-sec { margin-top: 48px; }
+.p-sec h2 { font-size: clamp(26px, 3vw, 32px); font-weight: 700; margin-bottom: 16px; }
+.p-sec p { font-size: 18px; margin-bottom: 14px; }
+
+.checks { list-style: none; display: grid; gap: 12px; }
+.checks li {
+  position: relative; padding: 14px 16px 14px 50px; font-size: 17px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+}
+.checks li::before {
+  content: "✓"; position: absolute; left: 14px; top: 13px; width: 24px; height: 24px; border-radius: 50%;
+  display: grid; place-items: center; font-size: 13px; font-weight: 700;
+  background: color-mix(in srgb, var(--c) 35%, var(--surface)); color: var(--ink);
+}
+
+.learn { list-style: none; counter-reset: learn; display: grid; gap: 14px; }
+.learn li { counter-increment: learn; position: relative; padding-left: 52px; font-size: 17px; min-height: 36px; }
+.learn li::before {
+  content: counter(learn, decimal-leading-zero); position: absolute; left: 0; top: -2px;
+  font-family: "Bricolage Grotesque", sans-serif; font-weight: 700; font-size: 22px; color: var(--muted);
+}
+
+.p-side { position: sticky; top: 92px; display: grid; gap: 18px; }
+.side-block {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  box-shadow: var(--shadow); padding: 22px;
+}
+.side-block[style*="--c"] { background: color-mix(in srgb, var(--c) var(--tint), var(--surface)); border-top: 4px solid var(--c); }
+.side-block h3 { font-size: 18px; font-weight: 700; margin-bottom: 12px; }
+.side-block .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.side-block .chips span {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 999px;
+  padding: 4px 12px; font-size: 14px; font-weight: 500;
+}
+.side-block .chips.plain span { background: color-mix(in srgb, var(--ink) 6%, transparent); border-color: transparent; }
+.p-links { display: grid; gap: 10px; }
+.p-links .btn { justify-content: center; padding: 10px 16px; }
+
+.p-gallery-sec { margin-top: 64px; }
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
+.g-item { margin: 0; }
+.g-frame {
+  display: block; width: 100%; aspect-ratio: 4 / 3; padding: 0; border: 1px solid var(--border);
+  border-radius: 18px; overflow: hidden; background: var(--surface); cursor: zoom-in; position: relative;
+}
+.g-frame img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .3s; }
+.g-frame:hover img { transform: scale(1.03); }
+.g-video .g-frame { aspect-ratio: 16 / 9; cursor: default; }
+.g-video iframe { width: 100%; height: 100%; border: 0; }
+.g-item figcaption { font-size: 14px; color: var(--muted); margin-top: 8px; }
+.g-missing {
+  position: absolute; inset: 0; display: grid; place-content: center; gap: 6px; text-align: center;
+  border: 2px dashed color-mix(in srgb, var(--ink) 25%, transparent); border-radius: 18px; color: var(--muted);
+  background: repeating-linear-gradient(45deg, transparent 0 12px, color-mix(in srgb, var(--ink) 3%, transparent) 12px 24px);
+}
+.g-missing code { font-size: 12.5px; }
+.missing .g-frame { cursor: default; }
+
+.pager { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 72px 0 24px; }
+.pager-link {
+  display: grid; gap: 4px; padding: 20px 22px; text-decoration: none; border-radius: var(--radius);
+  background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow); transition: transform .2s;
+}
+.pager-link:hover { transform: translateY(-3px); }
+.pager-link small { color: var(--muted); font-size: 13px; font-weight: 500; }
+.pager-link span { font-family: "Bricolage Grotesque", sans-serif; font-weight: 700; font-size: 19px; line-height: 1.2; }
+.pager-link.next { text-align: right; }
+
+.lightbox {
+  position: fixed; inset: 0; z-index: 100; background: rgba(10, 9, 22, .9);
+  display: flex; align-items: center; justify-content: center; padding: 56px 64px;
+}
+.lightbox[hidden] { display: none; }
+.lightbox figure { margin: 0; max-width: 100%; max-height: 100%; display: grid; gap: 10px; justify-items: center; }
+.lightbox img { max-width: 100%; max-height: calc(100vh - 140px); border-radius: 12px; object-fit: contain; }
+.lightbox figcaption { color: #eee; font-size: 15px; }
+.lb-close, .lb-nav {
+  position: absolute; background: rgba(255,255,255,.12); color: #fff; border: 0; cursor: pointer;
+  width: 44px; height: 44px; border-radius: 50%; font-size: 22px; display: grid; place-items: center;
+}
+.lb-close { top: 16px; right: 16px; font-size: 18px; }
+.lb-prev { left: 12px; top: 50%; transform: translateY(-50%); font-size: 30px; }
+.lb-next { right: 12px; top: 50%; transform: translateY(-50%); font-size: 30px; }
+
+@media (max-width: 900px) {
+  .p-body { grid-template-columns: 1fr; gap: 36px; }
+  .p-side { position: static; }
+}
+@media (max-width: 560px) {
+  .p-hero { padding-top: 32px; }
+  .pager { grid-template-columns: 1fr; }
+  .pager-link.next { text-align: left; }
+  .lightbox { padding: 56px 12px; }
+  .lb-nav { top: auto; bottom: 16px; transform: none; }
+  .lb-prev { left: calc(50% - 56px); } .lb-next { right: calc(50% - 56px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .g-frame img, .pager-link, .card .more span { transition: none; }
+}
+
+/* ---------- Project page: videos, design highlights, posters ---------- */
+.p-videos { margin-top: 56px; }
+.v-item { margin: 0; }
+.v-item + .v-item { margin-top: 24px; }
+.v-frame {
+  aspect-ratio: 16 / 9; border-radius: 22px; overflow: hidden; background: #000;
+  border: 1px solid var(--border); box-shadow: var(--shadow-lg);
+}
+.v-frame video, .v-frame iframe { width: 100%; height: 100%; display: block; border: 0; }
+.v-item figcaption { font-size: 14px; color: var(--muted); margin-top: 10px; }
+
+.d-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+.d-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 18px;
+  border-left: 4px solid var(--c);
+}
+.d-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+.d-card p { font-size: 15.5px !important; color: var(--muted); margin: 0 !important; line-height: 1.5; }
+
+.p-posters { margin-top: 64px; }
+.posters { display: grid; gap: 22px; }
+.poster {
+  display: grid; grid-template-columns: minmax(0, 340px) 1fr; gap: 32px; align-items: center;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  box-shadow: var(--shadow); padding: 22px;
+}
+.poster.is-embed { grid-template-columns: 1fr; }
+.poster.is-embed .poster-info { order: -1; }
+.poster-info h3 { font-size: 24px; font-weight: 700; margin: 10px 0 8px; }
+.poster-info p { color: var(--muted); font-size: 16px !important; }
+.poster-btns { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.poster-btns .btn { padding: 10px 16px; font-size: 15px; }
+.poster-img {
+  display: block; padding: 0; border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+  cursor: zoom-in; background: #fff; width: 100%;
+}
+.poster-img img { display: block; width: 100%; height: auto; transition: transform .3s; }
+.poster-img:hover img { transform: scale(1.02); }
+.poster-embed {
+  aspect-ratio: 16 / 10; border-radius: 16px; overflow: hidden; border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--ink) 5%, var(--surface));
+}
+.poster-embed iframe { width: 100%; height: 100%; border: 0; background: #fff; }
+.poster-load {
+  width: 100%; height: 100%; border: 0; cursor: pointer; background: transparent; color: var(--ink);
+  display: grid; place-content: center; justify-items: center; gap: 8px; font: inherit;
+}
+.poster-load b { font-family: "Bricolage Grotesque", sans-serif; font-size: 22px; }
+.poster-load small { color: var(--muted); font-size: 15px; }
+.pl-icon {
+  width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; font-size: 22px;
+  background: var(--coral); color: #fff; box-shadow: var(--shadow); padding-left: 4px; transition: transform .2s;
+}
+.poster-load:hover .pl-icon { transform: scale(1.08); }
+.embed-note { font-size: 14px !important; color: var(--muted); margin-top: 8px !important; }
+.lightbox.single .lb-nav { display: none; }
+@media (max-width: 760px) {
+  .poster { grid-template-columns: 1fr; gap: 18px; }
+  .poster-img { max-width: 360px; margin: 0 auto; }
+  .poster-embed { aspect-ratio: 3 / 4; }
+}
+.load-warn { grid-column: 1 / -1; padding: 20px; border-radius: 14px; background: color-mix(in srgb, var(--coral) 18%, var(--surface)); }
+
+/* ---------- Gallery groups ---------- */
+.g-group + .g-group { margin-top: 32px; }
+.g-head { font-size: 18px; font-weight: 700; margin-bottom: 12px; color: var(--muted); }
+.g-frame.contain { background: #fff; }
+.g-frame.contain img { object-fit: contain; }
+.lightbox.paper img { background: #fff; }
+
+/* ---------- Engineering documentation ---------- */
+.p-docs { margin-top: 64px; }
+.docs-intro { max-width: 760px; }
+.docs {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  box-shadow: var(--shadow); padding: 18px;
+}
+.docs-tabs { display: flex; gap: 6px; padding: 4px; border-radius: 14px; background: color-mix(in srgb, var(--ink) 6%, transparent); width: fit-content; max-width: 100%; margin-bottom: 18px; }
+.docs-tab {
+  border: 0; background: transparent; color: var(--muted); font: inherit; font-weight: 500; font-size: 15px;
+  padding: 8px 16px; border-radius: 10px; cursor: pointer; display: inline-flex; gap: 8px; align-items: center;
+}
+.docs-tab[aria-selected="true"] { background: var(--surface); color: var(--ink); box-shadow: var(--shadow-sm); }
+.docs-tab .count {
+  font-size: 12px; padding: 1px 8px; border-radius: 999px; background: color-mix(in srgb, var(--c) 30%, var(--surface));
+}
+.docs-panel[hidden] { display: none; }
+.docs-foot { margin-top: 16px; }
+.docs-foot .btn { padding: 10px 16px; font-size: 15px; }
+
+.dv-stage {
+  position: relative; display: block; width: 100%; aspect-ratio: 1.414; padding: 0; cursor: zoom-in;
+  background: #fff; border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
+}
+.dv-stage img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.dv-zoom {
+  position: absolute; right: 12px; bottom: 12px; font-size: 13px; font-weight: 500; color: #16132B;
+  background: rgba(255,255,255,.92); border: 1px solid rgba(22,19,43,.15); border-radius: 999px; padding: 4px 10px;
+}
+.dv-bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin: 14px 2px; }
+.dv-title b { display: block; font-family: "Bricolage Grotesque", sans-serif; font-size: 20px; }
+.dv-title small { color: var(--muted); font-size: 14px; }
+.dv-title .mine {
+  display: inline-block; margin-left: 6px; font-size: 12px; font-weight: 500; color: var(--ink);
+  padding: 1px 8px; border-radius: 999px; background: color-mix(in srgb, var(--c) 35%, var(--surface));
+}
+.dv-actions { display: flex; align-items: center; gap: 8px; }
+.dv-actions .btn { padding: 8px 14px; font-size: 15px; }
+.dv-count { font-size: 14px; color: var(--muted); min-width: 52px; text-align: center; }
+.dv-strip { display: flex; gap: 10px; overflow-x: auto; padding: 4px 2px 10px; scroll-snap-type: x proximity; }
+.dv-thumb {
+  flex: 0 0 132px; padding: 0; border: 2px solid transparent; border-radius: 10px; background: transparent;
+  cursor: pointer; text-align: left; font: inherit; color: var(--muted); scroll-snap-align: start;
+}
+.dv-thumb img { display: block; width: 100%; aspect-ratio: 1.414; object-fit: cover; background: #fff; border-radius: 8px; border: 1px solid var(--border); }
+.dv-thumb span { display: block; font-size: 12.5px; line-height: 1.3; margin: 6px 4px 2px; }
+.dv-thumb.on { border-color: var(--c); color: var(--ink); }
+.dv-thumb.on span { font-weight: 500; }
+
+.mfg-loading { color: var(--muted); }
+.mfg-summary { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; padding: 6px 2px 14px; }
+.mfg-summary > div:not(.mfg-procs) b { font-family: "Bricolage Grotesque", sans-serif; font-size: 34px; line-height: 1; margin-right: 6px; }
+.mfg-summary > div:not(.mfg-procs) span { color: var(--muted); }
+.mfg-procs { display: flex; flex-wrap: wrap; gap: 6px; flex: 1 1 320px; }
+.mfg-procs span, .mp-procs i {
+  font-style: normal; font-size: 12.5px; font-weight: 500; padding: 3px 10px; border-radius: 999px;
+  background: color-mix(in srgb, var(--c) 22%, var(--surface));
+}
+.mfg-hint { color: var(--muted); font-size: 14px !important; margin-bottom: 10px !important; }
+.mfg-list { display: grid; gap: 8px; }
+.mfg-part { border: 1px solid var(--border); border-radius: 14px; background: var(--bg); overflow: hidden; }
+.mfg-part[open] { background: var(--surface); box-shadow: var(--shadow-sm); }
+.mfg-part summary {
+  list-style: none; cursor: pointer; padding: 12px 16px; display: grid; align-items: center; gap: 4px 16px;
+  grid-template-columns: minmax(150px, 1.1fr) minmax(0, 1.4fr) minmax(0, 1.6fr) auto;
+}
+.mfg-part summary::-webkit-details-marker { display: none; }
+.mp-name { font-weight: 700; display: flex; align-items: center; gap: 8px; }
+.mp-name::before { content: "›"; display: inline-block; transition: transform .2s; color: var(--muted); font-size: 20px; line-height: 1; }
+.mfg-part[open] .mp-name::before { transform: rotate(90deg); }
+.mp-mat { color: var(--muted); font-size: 14px; }
+.mp-procs { display: flex; flex-wrap: wrap; gap: 4px; }
+.mp-count { font-size: 13px; color: var(--muted); white-space: nowrap; }
+.mp-steps { list-style: none; counter-reset: st; margin: 0; padding: 4px 16px 8px 16px; border-top: 1px solid var(--border); }
+.mp-steps li { counter-increment: st; position: relative; padding: 10px 0 10px 40px; border-bottom: 1px dashed var(--border); }
+.mp-steps li:last-child { border-bottom: 0; }
+.mp-steps li::before {
+  content: counter(st); position: absolute; left: 0; top: 10px; width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center; font-size: 13px; font-weight: 700; background: color-mix(in srgb, var(--c) 30%, var(--surface));
+}
+.ms-op { font-size: 16px; }
+.ms-op span { color: var(--muted); }
+.ms-meta { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 2px; font-size: 13.5px; color: var(--muted); }
+.ms-note { font-style: italic; }
+.mp-dwg {
+  margin: 0 16px 14px 56px; border: 0; background: none; color: var(--ink); font: inherit; font-weight: 500;
+  cursor: pointer; padding: 0; text-decoration: underline; text-underline-offset: 3px;
+}
+@media (max-width: 760px) {
+  .docs { padding: 12px; }
+  .mfg-part summary { grid-template-columns: 1fr auto; }
+  .mp-mat, .mp-procs { grid-column: 1 / -1; }
+  .mp-steps li { padding-left: 36px; }
+  .mp-dwg { margin-left: 16px; }
+  .dv-thumb { flex-basis: 108px; }
+  .dv-actions { width: 100%; }
+  .dv-actions .dv-pdf { margin-left: auto; }
+}
+</style>
 <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
 </head>
 <body>
@@ -229,8 +827,556 @@
   </div>
 </footer>
 
-<script src="assets/art.js"></script>
-<script src="assets/projects.js"></script>
-<script src="assets/main.js"></script>
+<script>
+// Built-in illustrations used when a project has no cover photo.
+// You don't need to edit this file. For a new project, set `cover` in projects.js instead.
+window.PROJECT_ART = {
+  "slugbot": "<svg viewBox=\"0 0 400 300\" preserveAspectRatio=\"xMidYMid meet\" aria-hidden=\"true\"> <circle cx=\"60\" cy=\"60\" r=\"10\" fill=\"#fff\" opacity=\".5\"/><circle cx=\"340\" cy=\"240\" r=\"16\" fill=\"#fff\" opacity=\".4\"/><circle cx=\"320\" cy=\"60\" r=\"7\" fill=\"#fff\" opacity=\".6\"/> <path d=\"M70 190 C 110 120, 170 120, 210 150 S 300 180, 330 150 C 345 140, 350 170, 330 190 C 290 225, 130 235, 70 190 Z\" fill=\"#EC6F6F\" stroke=\"#16132B\" stroke-width=\"3\"/> <path d=\"M120 160 q 10 -30 20 0 M160 150 q 10 -32 20 0 M200 152 q 10 -30 20 0 M240 162 q 10 -28 20 0 M280 160 q 8 -24 16 0\" fill=\"#F4C766\" stroke=\"#16132B\" stroke-width=\"3.5\"/> <path d=\"M320 152 l 22 -34 M330 158 l 30 -22\" stroke=\"#16132B\" stroke-width=\"3\" stroke-linecap=\"round\"/> <circle cx=\"342\" cy=\"118\" r=\"6\" fill=\"#F4C766\" stroke=\"#16132B\" stroke-width=\"3\"/><circle cx=\"360\" cy=\"136\" r=\"6\" fill=\"#F4C766\" stroke=\"#16132B\" stroke-width=\"3\"/> <path d=\"M40 250 q 30 -14 60 0 t 60 0 t 60 0 t 60 0 t 60 0 t 60 0\" fill=\"none\" stroke=\"#16132B\" stroke-width=\"3\" opacity=\".5\"/> </svg>",
+  "manta-ray": "<svg viewBox=\"0 0 400 190\" preserveAspectRatio=\"xMidYMid slice\" aria-hidden=\"true\"> <circle cx=\"40\" cy=\"40\" r=\"8\" fill=\"#fff\" opacity=\".5\"/><circle cx=\"360\" cy=\"150\" r=\"12\" fill=\"#fff\" opacity=\".4\"/><circle cx=\"350\" cy=\"36\" r=\"5\" fill=\"#fff\" opacity=\".6\"/> <path d=\"M200 50 C 230 50, 250 70, 340 95 C 270 110, 240 120, 215 140 L 205 180 L 195 140 C 160 120, 130 110, 60 95 C 150 70, 170 50, 200 50 Z\" fill=\"#F4C766\" stroke=\"#16132B\" stroke-width=\"3\" stroke-linejoin=\"round\"/> <circle cx=\"186\" cy=\"72\" r=\"5\" fill=\"#16132B\"/><circle cx=\"214\" cy=\"72\" r=\"5\" fill=\"#16132B\"/> <path d=\"M180 58 l -8 -14 M220 58 l 8 -14\" stroke=\"#16132B\" stroke-width=\"3\" stroke-linecap=\"round\"/> </svg>",
+  "tracking-turret": "<svg viewBox=\"0 0 400 190\" preserveAspectRatio=\"xMidYMid slice\" aria-hidden=\"true\"> <circle cx=\"290\" cy=\"95\" r=\"62\" fill=\"none\" stroke=\"#16132B\" stroke-width=\"3\"/> <circle cx=\"290\" cy=\"95\" r=\"36\" fill=\"#EC6F6F\" stroke=\"#16132B\" stroke-width=\"3\"/> <circle cx=\"290\" cy=\"95\" r=\"10\" fill=\"#fff\" stroke=\"#16132B\" stroke-width=\"3\"/> <path d=\"M290 20 v 30 M290 140 v 30 M215 95 h 30 M335 95 h 30\" stroke=\"#16132B\" stroke-width=\"3\" stroke-linecap=\"round\"/> <rect x=\"70\" y=\"120\" width=\"90\" height=\"40\" rx=\"8\" fill=\"#9A84EE\" stroke=\"#16132B\" stroke-width=\"3\"/> <rect x=\"92\" y=\"78\" width=\"46\" height=\"44\" rx=\"8\" fill=\"#44B8A6\" stroke=\"#16132B\" stroke-width=\"3\"/> <path d=\"M136 96 L 205 90\" stroke=\"#16132B\" stroke-width=\"8\" stroke-linecap=\"round\"/> <circle cx=\"115\" cy=\"100\" r=\"7\" fill=\"#fff\" stroke=\"#16132B\" stroke-width=\"3\"/> </svg>",
+  "polymer-test-systems": "<svg viewBox=\"0 0 400 190\" preserveAspectRatio=\"xMidYMid slice\" aria-hidden=\"true\"> <path d=\"M150 30 h 40 v 50 l 40 80 h -120 l 40 -80 z\" fill=\"#fff\" stroke=\"#16132B\" stroke-width=\"3\" stroke-linejoin=\"round\"/> <path d=\"M126 130 h 88 l 16 30 h -120 z\" fill=\"#44B8A6\" stroke=\"#16132B\" stroke-width=\"3\" stroke-linejoin=\"round\"/> <circle cx=\"160\" cy=\"118\" r=\"6\" fill=\"#fff\" stroke=\"#16132B\" stroke-width=\"3\"/><circle cx=\"178\" cy=\"100\" r=\"4\" fill=\"#fff\" stroke=\"#16132B\" stroke-width=\"3\"/> <rect x=\"250\" y=\"60\" width=\"100\" height=\"80\" rx=\"10\" fill=\"#F4C766\" stroke=\"#16132B\" stroke-width=\"3\"/> <path d=\"M262 110 l 16 -18 l 14 12 l 16 -26 l 16 20 l 14 -10\" fill=\"none\" stroke=\"#16132B\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/> </svg>",
+  "msa-gas-detection": "<svg viewBox=\"0 0 400 190\" preserveAspectRatio=\"xMidYMid slice\" aria-hidden=\"true\"> <rect x=\"150\" y=\"40\" width=\"80\" height=\"120\" rx=\"16\" fill=\"#fff\" stroke=\"#16132B\" stroke-width=\"3\"/> <rect x=\"164\" y=\"56\" width=\"52\" height=\"36\" rx=\"6\" fill=\"#44B8A6\" stroke=\"#16132B\" stroke-width=\"3\"/> <circle cx=\"190\" cy=\"126\" r=\"14\" fill=\"#F4C766\" stroke=\"#16132B\" stroke-width=\"3\"/> <path d=\"M250 70 q 20 25 0 50 M268 56 q 34 39 0 78 M286 42 q 48 53 0 106\" fill=\"none\" stroke=\"#16132B\" stroke-width=\"3\" stroke-linecap=\"round\"/> </svg>",
+};
+</script>
+<!-- Your project content: edit projects.js -->
+<script src="projects.js"></script>
+<script>
+/* Shared site behavior: nav, theme, scroll reveal, project cards and project pages.
+   You normally don't need to edit this file. Project content lives in projects.js. */
+(function () {
+  const PROJECTS = window.PROJECTS || [];
+  const ART = window.PROJECT_ART || {};
+  const isLocal = location.protocol === 'file:';   // previewing on your computer
+
+  /* ---------- Nav ---------- */
+  const menuBtn = document.getElementById('menuBtn');
+  const menu = document.getElementById('menu');
+  if (menuBtn && menu) {
+    menuBtn.addEventListener('click', () => {
+      const open = menu.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', open);
+    });
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      menu.classList.remove('open'); menuBtn.setAttribute('aria-expanded', false);
+    }));
+  }
+
+  /* ---------- Theme toggle ---------- */
+  const root = document.documentElement;
+  const themeBtn = document.getElementById('themeBtn');
+  if (themeBtn) themeBtn.addEventListener('click', () => {
+    const isDark = root.dataset.theme
+      ? root.dataset.theme === 'dark'
+      : matchMedia('(prefers-color-scheme: dark)').matches;
+    root.dataset.theme = isDark ? 'light' : 'dark';
+    try { localStorage.setItem('theme', root.dataset.theme); } catch (e) {}
+  });
+
+  /* ---------- Helpers ---------- */
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const list = a => Array.isArray(a) ? a : [];
+  const href = p => `project.html?p=${encodeURIComponent(p.slug)}`;
+  const tint = c => `color-mix(in srgb, var(--${c || 'blue'}) 45%, var(--surface))`;
+
+  // Cover area: photo if given, otherwise the built-in illustration, otherwise a colored block
+  function coverHTML(p) {
+    const fallback = ART[p.slug] || `<div class="art-initial">${esc((p.title || '?').charAt(0))}</div>`;
+    if (p.cover) {
+      return `<img src="${esc(p.cover)}" alt="${esc(p.title)}" loading="lazy" style="object-position:${esc(p.coverPosition || '50% 50%')}"
+                onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'art-fallback',innerHTML:this.dataset.fb}))"
+                data-fb="${esc(fallback)}">`;
+    }
+    return fallback;
+  }
+
+  /* ---------- Reveal on scroll ---------- */
+  function reveal() {
+    const els = document.querySelectorAll('.reveal:not(.in)');
+    if (!('IntersectionObserver' in window)) { els.forEach(el => el.classList.add('in')); return; }
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    els.forEach(el => io.observe(el));
+  }
+
+
+  // Load an extra data file (e.g. a manufacturing plan) with a <script> tag, so it also works when previewing locally
+  function loadScript(src, done) {
+    const s = document.createElement('script');
+    s.src = src; s.onload = () => done(true); s.onerror = () => done(false);
+    document.body.appendChild(s);
+  }
+
+  /* ---------- Homepage cards ---------- */
+  const grid = document.getElementById('projectGrid');
+  if (grid && !PROJECTS.length) {
+    grid.innerHTML = `<p class="load-warn">Projects couldn't load. Make sure <code>projects.js</code> is uploaded in the same place as <code>index.html</code>.</p>`;
+  } else if (grid) {
+    let featuredDone = false;
+    grid.innerHTML = PROJECTS.map(p => {
+      const feature = p.featured && !featuredDone;
+      if (feature) featuredDone = true;
+      const tags = list(p.skills).slice(0, 4).map(t => `<span class="tag">${esc(t)}</span>`).join('');
+      const cardP = p.thumb ? Object.assign({}, p, { cover: p.thumb, coverPosition: p.thumbPosition || '50% 50%' }) : p;
+      return `
+        <a class="card ${feature ? 'feature' : 'half'} reveal" href="${href(p)}">
+          <div class="art" style="background:${tint(p.color)}">${coverHTML(cardP)}</div>
+          <div class="body">
+            <span class="pill ${esc(p.color)}" style="align-self:flex-start">${esc(p.label)}</span>
+            <h3>${esc(p.title)}</h3>
+            <div class="role">${esc(p.org)} · ${esc(p.dates)}</div>
+            <p class="summary">${p.summary || ''}</p>
+            <div class="tags">${tags}</div>
+            <span class="more">View project <span aria-hidden="true">→</span></span>
+          </div>
+        </a>`;
+    }).join('');
+  }
+
+  /* ---------- Lightbox (shared by gallery, posters and drawings) ---------- */
+  const LB = { list: [], i: 0 };
+  function lightboxHTML() {
+    return `
+      <div class="lightbox" id="lightbox" hidden>
+        <button class="lb-close" type="button" aria-label="Close">✕</button>
+        <button class="lb-nav lb-prev" type="button" aria-label="Previous image">‹</button>
+        <figure><img alt=""><figcaption></figcaption></figure>
+        <button class="lb-nav lb-next" type="button" aria-label="Next image">›</button>
+      </div>`;
+  }
+  function lbShow(k) {
+    const lb = document.getElementById('lightbox');
+    if (!LB.list.length) return;
+    LB.i = (k + LB.list.length) % LB.list.length;
+    const it = LB.list[LB.i];
+    lb.querySelector('img').src = it.src;
+    lb.querySelector('img').alt = it.cap || '';
+    lb.querySelector('figcaption').textContent = it.cap || '';
+    lb.classList.toggle('single', LB.list.length < 2);
+    lb.classList.toggle('paper', !!it.paper);
+  }
+  function lbOpen(items, k) {
+    const lb = document.getElementById('lightbox');
+    LB.list = items; lbShow(k || 0);
+    lb.hidden = false; document.body.style.overflow = 'hidden';
+    lb.querySelector('.lb-close').focus();
+  }
+  function lbSetup() {
+    const lb = document.getElementById('lightbox');
+    if (!lb) return;
+    const close = () => { lb.hidden = true; document.body.style.overflow = ''; };
+    lb.querySelector('.lb-close').addEventListener('click', close);
+    lb.querySelector('.lb-prev').addEventListener('click', () => lbShow(LB.i - 1));
+    lb.querySelector('.lb-next').addEventListener('click', () => lbShow(LB.i + 1));
+    lb.addEventListener('click', e => { if (e.target === lb) close(); });
+    document.addEventListener('keydown', e => {
+      if (lb.hidden) return;
+      if (e.key === 'Escape') close();
+      if (e.key === 'ArrowLeft') lbShow(LB.i - 1);
+      if (e.key === 'ArrowRight') lbShow(LB.i + 1);
+    });
+  }
+
+  /* ---------- Project page ---------- */
+  const page = document.getElementById('projectPage');
+  if (page) {
+    const slug = new URLSearchParams(location.search).get('p');
+    const i = PROJECTS.findIndex(p => p.slug === slug);
+    if (i < 0) {
+      page.innerHTML = `
+        <section class="block"><div class="wrap">
+          <h1 class="p-title">Project not found</h1>
+          <p class="p-lede">${PROJECTS.length
+            ? `That project doesn't exist (anymore). <a href="index.html#projects">See all projects →</a>`
+            : `Projects couldn't load. Make sure <code>projects.js</code> is uploaded in the same place as <code>project.html</code>.`}</p>
+        </div></section>`;
+    } else {
+      renderProject(PROJECTS[i], i);
+    }
+  }
+
+  function renderProject(p, i) {
+    document.title = `${p.title} | Maitreyi Dixit`;
+    const color = p.color || 'blue';
+    const cvar = `--c: var(--${color})`;
+
+    const meta = [['Role', p.role], ['Organization', p.org], ['Timeline', p.dates], ['Team', p.team]]
+      .filter(([, v]) => v)
+      .map(([k, v]) => `<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join('');
+
+    const results = list(p.results).length ? `
+      <div class="p-results">
+        ${list(p.results).map(r => `
+          <div class="stat reveal" style="${cvar}"><b class="${String(r.value).length > 6 ? 'sm' : ''}">${esc(r.value)}</b><span>${esc(r.label)}</span></div>`).join('')}
+      </div>` : '';
+
+    const links = list(p.links).length ? `
+      <div class="side-block">
+        <h3>Links</h3>
+        <div class="p-links">${list(p.links).map(l => `<a class="btn secondary" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)} ↗</a>`).join('')}</div>
+      </div>` : '';
+
+    // Videos (own MP4 files or YouTube)
+    const videos = list(p.videos).map(v => `
+      <figure class="v-item">
+        <div class="v-frame">
+          ${v.youtube
+            ? `<iframe src="https://www.youtube-nocookie.com/embed/${esc(v.youtube)}" title="${esc(v.caption || p.title)}" allowfullscreen loading="lazy"></iframe>`
+            : `<video controls preload="metadata" playsinline ${v.poster ? `poster="${esc(v.poster)}"` : ''}><source src="${esc(v.src)}" type="video/mp4">Your browser can't play this video. <a href="${esc(v.src)}">Download it</a>.</video>`}
+        </div>
+        ${v.caption ? `<figcaption>${esc(v.caption)}</figcaption>` : ''}
+      </figure>`).join('');
+
+    // Card sections: `details` (+ `detailsTitle`) and/or `detailSections: [{ title, items }]`
+    const sections = [];
+    if (list(p.details).length) sections.push({ title: p.detailsTitle || 'Design highlights', items: p.details });
+    list(p.detailSections).forEach(s => sections.push(s));
+    const detailHTML = sections.map(s => `
+      <section class="p-sec reveal">
+        <h2>${esc(s.title)}</h2>
+        ${s.intro ? `<p>${s.intro}</p>` : ''}
+        <div class="d-grid" style="${cvar}">
+          ${list(s.items).map(d => `<div class="d-card"><h3>${esc(d.title)}</h3><p>${d.text || ''}</p></div>`).join('')}
+        </div>
+      </section>`).join('');
+
+    // Posters
+    const posters = list(p.posters).map(ps => {
+      const buttons = [
+        ps.interactive ? `<a class="btn primary" href="${esc(ps.interactive)}" target="_blank" rel="noopener">Open interactive poster ↗</a>` : '',
+        ps.pdf ? `<a class="btn secondary" href="${esc(ps.pdf)}" target="_blank" rel="noopener">View PDF ↗</a>` : '',
+        ps.image ? `<a class="btn secondary" href="${esc(ps.image)}" target="_blank" rel="noopener">Full-size image ↗</a>` : ''
+      ].join('');
+      const preview = ps.image
+        ? `<button class="poster-img" type="button" data-full="${esc(ps.image)}" data-cap="${esc(ps.title)}" aria-label="Enlarge poster">
+             <img src="${esc(ps.image)}" alt="Poster: ${esc(ps.title)}" loading="lazy"></button>`
+        : (ps.interactive && ps.embed !== false)
+          ? `<div class="poster-embed" data-src="${esc(ps.interactive)}">
+               <button class="poster-load" type="button">
+                 <span class="pl-icon" aria-hidden="true">▶</span>
+                 <b>Load interactive poster</b>
+                 <small>Zoom into figures and play the videos right here</small>
+               </button>
+             </div>`
+          : '';
+      return `
+        <article class="poster ${ps.image ? 'has-img' : 'is-embed'} reveal">
+          ${preview}
+          <div class="poster-info">
+            ${ps.venue ? `<span class="pill ${esc(color)}">${esc(ps.venue)}</span>` : ''}
+            <h3>${esc(ps.title)}</h3>
+            ${ps.text ? `<p>${ps.text}</p>` : ''}
+            <div class="poster-btns">${buttons}</div>
+          </div>
+        </article>`;
+    }).join('');
+
+    // Engineering documentation (tabs: drawings / manufacturing)
+    const docs = p.docs || null;
+    const drawings = docs ? list(docs.drawings) : [];
+    const mfg = docs && docs.manufacturing ? docs.manufacturing : null;
+    let docsHTML = '';
+    if (drawings.length || mfg) {
+      const tabs = [];
+      if (drawings.length) tabs.push(['drawings', `Drawings <span class="count">${drawings.length}</span>`]);
+      if (mfg) tabs.push(['mfg', `Manufacturing plan`]);
+      docsHTML = `
+        <section class="p-sec p-docs reveal" id="docs">
+          <h2>${esc((docs && docs.title) || 'Engineering documentation')}</h2>
+          ${docs.intro ? `<p class="docs-intro">${docs.intro}</p>` : ''}
+          <div class="docs" style="${cvar}">
+            <div class="docs-tabs" role="tablist">
+              ${tabs.map(([k, label], n) => `<button role="tab" type="button" class="docs-tab" data-tab="${k}" aria-selected="${n === 0}">${label}</button>`).join('')}
+            </div>
+            ${drawings.length ? `
+            <div class="docs-panel" data-panel="drawings" role="tabpanel">
+              <div class="dv">
+                <button class="dv-stage" type="button" aria-label="Enlarge drawing">
+                  <img alt="" src="${esc(drawings[0].image)}">
+                  <span class="dv-zoom">⤢ Enlarge</span>
+                </button>
+                <div class="dv-bar">
+                  <div class="dv-title"><b></b><small></small></div>
+                  <div class="dv-actions">
+                    <button class="btn secondary dv-prev" type="button" aria-label="Previous drawing">‹</button>
+                    <span class="dv-count"></span>
+                    <button class="btn secondary dv-next" type="button" aria-label="Next drawing">›</button>
+                    <a class="btn secondary dv-pdf" target="_blank" rel="noopener">PDF ↗</a>
+                  </div>
+                </div>
+                <div class="dv-strip">
+                  ${drawings.map((d, n) => `
+                    <button class="dv-thumb" type="button" data-n="${n}" aria-label="${esc(d.title)}">
+                      <img src="${esc(d.thumb || d.image)}" alt="" loading="lazy">
+                      <span>${esc(d.title)}</span>
+                    </button>`).join('')}
+                </div>
+              </div>
+              ${docs.drawingSet ? `<p class="docs-foot"><a class="btn secondary" href="${esc(docs.drawingSet)}" target="_blank" rel="noopener">Download full drawing set (PDF, ${drawings.length} sheets)</a></p>` : ''}
+            </div>` : ''}
+            ${mfg ? `
+            <div class="docs-panel" data-panel="mfg" role="tabpanel" ${drawings.length ? 'hidden' : ''}>
+              <div class="mfg" data-src="${esc(mfg.data || '')}"><p class="mfg-loading">Loading manufacturing plan…</p></div>
+              ${mfg.download ? `<p class="docs-foot"><a class="btn secondary" href="${esc(mfg.download)}">Download operation sheets (${esc(mfg.downloadLabel || 'Excel')})</a></p>` : ''}
+            </div>` : ''}
+          </div>
+        </section>`;
+    }
+
+    // Gallery (optional `group` on each image makes sub-headings)
+    const groups = [];
+    list(p.images).forEach(m => {
+      const g = m.group || '';
+      let grp = groups.find(x => x.name === g);
+      if (!grp) groups.push(grp = { name: g, items: [] });
+      grp.items.push(m);
+    });
+    const galleryHTML = groups.map(g => `
+      <div class="g-group">
+        ${g.name ? `<h3 class="g-head">${esc(g.name)}</h3>` : ''}
+        <div class="gallery">
+          ${g.items.map(m => m.youtube
+            ? `<figure class="g-item g-video"><div class="g-frame"><iframe src="https://www.youtube-nocookie.com/embed/${esc(m.youtube)}" title="${esc(m.caption || p.title)}" allowfullscreen loading="lazy"></iframe></div>${m.caption ? `<figcaption>${esc(m.caption)}</figcaption>` : ''}</figure>`
+            : `<figure class="g-item" data-photo>
+                 <button class="g-frame ${m.fit === 'contain' ? 'contain' : ''}" type="button" aria-label="Enlarge: ${esc(m.caption || 'image')}">
+                   <img src="${esc(m.src)}" alt="${esc(m.caption || p.title)}" loading="lazy" ${m.position ? `style="object-position:${esc(m.position)}"` : ''}>
+                 </button>
+                 ${m.caption ? `<figcaption>${esc(m.caption)}</figcaption>` : ''}
+               </figure>`).join('')}
+        </div>
+      </div>`).join('');
+
+    const prev = PROJECTS[(i - 1 + PROJECTS.length) % PROJECTS.length];
+    const next = PROJECTS[(i + 1) % PROJECTS.length];
+    const pager = PROJECTS.length > 1 ? `
+      <nav class="pager" aria-label="More projects">
+        <a href="${href(prev)}" class="pager-link"><small>← Previous</small><span>${esc(prev.title)}</span></a>
+        <a href="${href(next)}" class="pager-link next"><small>Next →</small><span>${esc(next.title)}</span></a>
+      </nav>` : '';
+
+    page.innerHTML = `
+      <section class="p-hero">
+        <div class="wrap">
+          <a class="back" href="index.html#projects">← All projects</a>
+          <span class="pill ${esc(color)}">${esc(p.label)}</span>
+          <h1 class="p-title">${esc(p.title)}</h1>
+          <p class="p-lede">${p.summary || ''}</p>
+          <dl class="p-meta">${meta}</dl>
+        </div>
+      </section>
+
+      <div class="wrap">
+        <div class="p-cover" style="background:${tint(color)}">${coverHTML(p)}</div>
+        ${results}
+
+        <section class="p-sec p-videos reveal" id="videos" ${videos ? '' : 'hidden'}><h2>See it in action</h2>${videos}</section>
+
+        <div class="p-body">
+          <div class="p-main">
+            <section class="p-sec reveal">
+              <h2>Overview</h2>
+              ${list(p.overview).map(t => `<p>${t}</p>`).join('')}
+            </section>
+            ${detailHTML}
+            <section class="p-sec reveal">
+              <h2>My contributions</h2>
+              <ul class="checks" style="${cvar}">${list(p.contributions).map(t => `<li>${t}</li>`).join('')}</ul>
+            </section>
+            <section class="p-sec reveal">
+              <h2>What I learned</h2>
+              <ol class="learn">${list(p.learnings).map(t => `<li>${t}</li>`).join('')}</ol>
+            </section>
+          </div>
+
+          <aside class="p-side">
+            <div class="side-block reveal" style="${cvar}">
+              <h3>Skills gained</h3>
+              <div class="chips">${list(p.skills).map(s => `<span>${esc(s)}</span>`).join('')}</div>
+            </div>
+            ${list(p.tools).length ? `
+            <div class="side-block reveal">
+              <h3>Tools</h3>
+              <div class="chips plain">${list(p.tools).map(s => `<span>${esc(s)}</span>`).join('')}</div>
+            </div>` : ''}
+            ${links}
+          </aside>
+        </div>
+
+        ${docsHTML}
+
+        ${posters ? `<section class="p-sec p-posters"><h2>Posters &amp; presentations</h2><div class="posters">${posters}</div></section>` : ''}
+
+        <section class="p-sec p-gallery-sec" id="gallery" ${galleryHTML ? '' : 'hidden'}>
+          <h2>Gallery</h2>
+          ${galleryHTML}
+        </section>
+
+        ${pager}
+      </div>
+      ${lightboxHTML()}`;
+
+    lbSetup();
+    setupVideos();
+    setupGallery();
+    setupPosters();
+    if (drawings.length || mfg) setupDocs(p, drawings, mfg);
+  }
+
+  /* ---------- Videos: hide ones that aren't uploaded yet ---------- */
+  function setupVideos() {
+    const sec = document.getElementById('videos');
+    if (!sec) return;
+    sec.querySelectorAll('video').forEach(v => {
+      const srcEl = v.querySelector('source');
+      srcEl.addEventListener('error', () => {
+        const fig = v.closest('.v-item');
+        if (isLocal) {
+          fig.querySelector('.v-frame').innerHTML = `<div class="g-missing"><b>Add video</b><code>${esc(srcEl.getAttribute('src'))}</code></div>`;
+        } else {
+          fig.remove();
+          if (!sec.querySelector('.v-item')) sec.hidden = true;
+        }
+      });
+    });
+  }
+
+  /* ---------- Gallery: missing photos + lightbox ---------- */
+  function setupGallery() {
+    const sec = document.getElementById('gallery');
+    if (!sec) return;
+    sec.querySelectorAll('.g-item[data-photo]').forEach(fig => {
+      const img = fig.querySelector('img');
+      const onFail = () => {
+        if (isLocal) {
+          fig.classList.add('missing');
+          img.replaceWith(Object.assign(document.createElement('div'), {
+            className: 'g-missing',
+            innerHTML: `<b>Add photo</b><code>${esc(img.getAttribute('src'))}</code>`
+          }));
+        } else {
+          const group = fig.closest('.g-group');
+          fig.remove();
+          if (group && !group.querySelector('.g-item')) group.remove();
+          if (!sec.querySelector('.g-item')) sec.hidden = true;
+        }
+      };
+      if (img.complete && img.naturalWidth === 0) onFail(); else img.addEventListener('error', onFail);
+    });
+    const photos = () => [...sec.querySelectorAll('.g-item[data-photo]:not(.missing) img')];
+    sec.addEventListener('click', e => {
+      const btn = e.target.closest('button.g-frame'); if (!btn) return;
+      const img = btn.querySelector('img'); if (!img) return;
+      const all = photos();
+      lbOpen(all.map(im => ({ src: im.src, cap: im.closest('figure').querySelector('figcaption')?.textContent || '' })), all.indexOf(img));
+    });
+  }
+
+  /* ---------- Posters ---------- */
+  function setupPosters() {
+    document.querySelectorAll('.poster-img').forEach(b =>
+      b.addEventListener('click', () => lbOpen([{ src: b.dataset.full, cap: b.dataset.cap, paper: true }], 0)));
+    document.querySelectorAll('.poster-embed').forEach(box => {
+      box.querySelector('.poster-load').addEventListener('click', () => {
+        const src = box.dataset.src;
+        box.innerHTML = `<iframe src="${esc(src)}" title="Interactive poster" allowfullscreen></iframe>`;
+        box.insertAdjacentHTML('afterend',
+          `<p class="embed-note">Poster not showing? <a href="${esc(src)}" target="_blank" rel="noopener">Open it in a new tab ↗</a></p>`);
+      });
+    });
+  }
+
+  /* ---------- Engineering docs: tabs, drawing viewer, manufacturing plan ---------- */
+  function setupDocs(p, drawings, mfg) {
+    const root = document.querySelector('#docs .docs');
+    const tabs = [...root.querySelectorAll('.docs-tab')];
+    const showTab = key => {
+      tabs.forEach(t => t.setAttribute('aria-selected', t.dataset.tab === key));
+      root.querySelectorAll('.docs-panel').forEach(pn => { pn.hidden = pn.dataset.panel !== key; });
+    };
+    tabs.forEach(t => t.addEventListener('click', () => showTab(t.dataset.tab)));
+
+    // Drawing viewer
+    let cur = 0;
+    const byId = {};
+    drawings.forEach((d, n) => { if (d.id) byId[d.id] = n; });
+    const lbItems = drawings.map(d => ({ src: d.image, cap: d.title, paper: true }));
+    const selectDrawing = n => {
+      if (!drawings.length) return;
+      cur = (n + drawings.length) % drawings.length;
+      const d = drawings[cur];
+      const dv = root.querySelector('.dv');
+      dv.querySelector('.dv-stage img').src = d.image;
+      dv.querySelector('.dv-stage img').alt = `Engineering drawing: ${d.title}`;
+      dv.querySelector('.dv-title b').textContent = d.title;
+      dv.querySelector('.dv-title small').innerHTML = [d.note ? esc(d.note) : '', d.by ? `Drawn by ${esc(d.by)}` : ''].filter(Boolean).join(' · ') +
+        (d.mine ? ' <span class="mine">My drawing</span>' : '');
+      dv.querySelector('.dv-count').textContent = `${cur + 1} / ${drawings.length}`;
+      const pdf = dv.querySelector('.dv-pdf');
+      if (d.pdf) { pdf.href = d.pdf; pdf.hidden = false; } else pdf.hidden = true;
+      dv.querySelectorAll('.dv-thumb').forEach((t, k) => t.classList.toggle('on', k === cur));
+      const on = dv.querySelector('.dv-thumb.on');
+      if (on) { const strip = on.parentElement; strip.scrollTo({ left: on.offsetLeft - strip.clientWidth / 2 + on.clientWidth / 2, behavior: 'smooth' }); }
+    };
+    if (drawings.length) {
+      const dv = root.querySelector('.dv');
+      dv.querySelectorAll('.dv-thumb').forEach(t => t.addEventListener('click', () => selectDrawing(+t.dataset.n)));
+      dv.querySelector('.dv-prev').addEventListener('click', () => selectDrawing(cur - 1));
+      dv.querySelector('.dv-next').addEventListener('click', () => selectDrawing(cur + 1));
+      dv.querySelector('.dv-stage').addEventListener('click', () => lbOpen(lbItems, cur));
+      selectDrawing(0);
+    }
+
+    // Manufacturing plan (data file loaded on demand)
+    if (!mfg) return;
+    const box = root.querySelector('.mfg');
+    const render = parts => {
+      const steps = parts.reduce((a, pt) => a + list(pt.steps).length, 0);
+      const procs = [...new Set(parts.flatMap(pt => list(pt.processes)))];
+      box.innerHTML = `
+        <div class="mfg-summary">
+          <div><b>${parts.length}</b><span>parts</span></div>
+          <div><b>${steps}</b><span>operations</span></div>
+          <div class="mfg-procs">${procs.map(x => `<span>${esc(x)}</span>`).join('')}</div>
+        </div>
+        <p class="mfg-hint">Select a part to see its step-by-step operation sheet.</p>
+        <div class="mfg-list">
+          ${parts.map(pt => `
+            <details class="mfg-part">
+              <summary>
+                <span class="mp-name">${esc(pt.part)}</span>
+                <span class="mp-mat">${esc(pt.material || '')}</span>
+                <span class="mp-procs">${list(pt.processes).map(x => `<i>${esc(x)}</i>`).join('')}</span>
+                <span class="mp-count">${list(pt.steps).length} steps</span>
+              </summary>
+              <ol class="mp-steps">
+                ${list(pt.steps).map(s => `
+                  <li>
+                    <div class="ms-op"><b>${esc(s.op)}</b>${s.desc ? ` <span>${esc(s.desc)}</span>` : ''}</div>
+                    <div class="ms-meta">
+                      ${s.equip ? `<span class="ms-eq">🛠 ${esc(s.equip)}</span>` : ''}
+                      ${s.notes ? `<span class="ms-note">${esc(s.notes)}</span>` : ''}
+                    </div>
+                  </li>`).join('')}
+              </ol>
+              ${pt.drawing && byId[pt.drawing] !== undefined ? `<button class="mp-dwg" type="button" data-dwg="${esc(pt.drawing)}">View drawing →</button>` : ''}
+            </details>`).join('')}
+        </div>`;
+      box.querySelectorAll('.mp-dwg').forEach(b => b.addEventListener('click', () => {
+        showTab('drawings'); selectDrawing(byId[b.dataset.dwg]);
+        document.getElementById('docs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }));
+    };
+    const fromData = () => (window.PROJECT_DATA && window.PROJECT_DATA[p.slug] && window.PROJECT_DATA[p.slug].manufacturing) || null;
+    if (list(mfg.parts).length) render(mfg.parts);
+    else if (mfg.data) loadScript(mfg.data, ok => {
+      const parts = ok && fromData();
+      if (parts) render(parts);
+      else box.innerHTML = `<p class="mfg-loading">The manufacturing plan couldn't load${mfg.download ? ', but you can download the operation sheets below' : ''}.</p>`;
+    });
+  }
+
+  reveal();
+})();
+</script>
 </body>
 </html>

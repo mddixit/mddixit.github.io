@@ -2,26 +2,25 @@
 
 Personal portfolio site: **https://mddixit.github.io**
 
-Plain HTML/CSS/JS with no build step. Each project gets its own page, with a description, photos, my contributions, and the skills and lessons I gained from it.
+Plain HTML with no build step. The design is built into each page. Each project gets its own page, with a description, photos, my contributions, and the skills and lessons I gained from it.
 
 ## What's in here
 
 | Path | What it is |
 |------|------------|
-| `index.html` | Homepage (about, project cards, experience, skills, contact) |
+| `index.html` | Homepage (about, project cards, experience, skills, contact). The design is built in. |
 | `project.html` | Project page template. Every project uses it: `project.html?p=<slug>` |
-| `assets/projects.js` | **All project content. This is the file you edit.** |
-| `assets/style.css` | Styling for every page |
-| `assets/main.js` | Site behavior (no need to edit) |
-| `assets/art.js` | Built-in project illustrations (no need to edit) |
-| `images/<slug>/` | Photos for each project |
+| `projects.js` | **All project content. This is the file you edit.** |
+| `images/<slug>/` | Photos, videos and posters for each project |
 | `resume.pdf` | Résumé linked from the homepage |
+
+All four files sit side by side at the top of the repository. The only folder is `images`.
 
 ---
 
 ## Add a new project
 
-1. Open **`assets/projects.js`** (on GitHub: click the file, then the ✏️ pencil icon).
+1. Open **`projects.js`** (on GitHub: click the file, then the ✏️ pencil icon).
 2. Scroll to the **TEMPLATE** at the bottom and copy the whole `{ ... },` block.
 3. Paste it inside the `window.PROJECTS = [ ... ]` list, where you want the project to appear. Order in the list = order on the site.
 4. Fill in the fields:
@@ -63,6 +62,31 @@ These are optional fields in each project. The SLUGBOT entry uses all of them, s
 - `details`: small "design highlight" cards. `detailsTitle` changes the heading.
 - `coverPosition`: controls which part of the cover photo stays visible when it's cropped, e.g. `"30% 40%"` (horizontal, vertical).
 
+- `docs`: an **Engineering documentation** panel with two tabs: a drawing viewer (thumbnails, enlarge, PDF per sheet, full-set download) and a manufacturing plan (one collapsible row per part). The AquaMorph entry shows the format. The plan's steps live in `images/manta-ray/manufacturing.js`, which keeps `projects.js` short.
+- `thumb`: a different image for the homepage card than the `cover` at the top of the project page.
+- `detailSections`: more card sections, each with its own heading (e.g. "Design requirements").
+- `group` on gallery images: groups photos under sub-headings (e.g. "Prototype & build", "Analysis & testing").
+
+## Adding a video you have as .mov (iPhone / QuickTime)
+
+`.mov` files often won't play in Chrome, Edge or Firefox, so convert the video first. Pick one option:
+
+**Option A: YouTube (best for long or large videos)**
+1. Upload the .mov to YouTube and set visibility to **Unlisted** (only people with the link can find it).
+2. Copy the video ID: the part after `v=` in the link (for `youtube.com/watch?v=abc123XYZ`, it's `abc123XYZ`).
+3. In `projects.js`, under the project's `videos: [ ... ]`, add:
+   `{ youtube: "abc123XYZ", caption: "AquaMorph swimming test" },`
+
+**Option B: host it on GitHub (videos under 25 MB)**
+1. Convert to MP4 with the free app **HandBrake** (handbrake.fr): open the .mov, choose preset **General → Fast 720p30**, then click **Start**.
+   Or, on Windows, open it in **Clipchamp** and export at 720p. On a Mac, open it in QuickTime Player, then **File → Export As → 720p**, and rename the file to `.mp4` if needed.
+2. Rename it to something simple, like `aquamorph-demo.mp4`, and check that it's **under 25 MB**. If it's bigger, use Option A.
+3. On GitHub, open the `images/manta-ray` folder, click **Add file → Upload files**, drop the MP4 in, and commit.
+4. In `projects.js`, the manta-ray entry has a commented-out line under `videos`. Remove the `//` at the start of that line so it reads:
+   `{ src: "images/manta-ray/aquamorph-demo.mp4", caption: "AquaMorph swimming test" },`
+
+A video that's listed but not uploaded yet stays hidden on the live site, so nothing looks broken in the meantime.
+
 To turn a poster PDF into an image for the preview, open it and export or screenshot it as a JPG about 2000–2500 px wide.
 
 ## Preview before publishing (optional)
@@ -75,10 +99,10 @@ Double-click `index.html` to open it in your browser. Everything works locally, 
 
 **First time:**
 1. Create a public repository named exactly **`mddixit.github.io`**.
-2. Click **uploading an existing file** and drag in everything from this folder, **including the `assets` and `images` folders**. Then click **Commit changes**.
+2. Click **uploading an existing file** and drag in everything from this folder, **including the `images` folder**. Then click **Commit changes**.
 3. Go to **Settings → Pages**, set Source to *Deploy from a branch*, Branch to `main` / `(root)`, and click **Save**.
 4. Visit https://mddixit.github.io after 1–2 minutes.
 
-**Already published the first version?** Upload the new files the same way. GitHub replaces files with the same name (`index.html`) and adds the new ones (`project.html`, `assets/`, `images/`).
+**Already published the first version?** Upload the new files the same way. GitHub replaces files with the same name (`index.html`) and adds the new ones (`project.html`, `projects.js`, `images/`). If an old `assets` folder is still in your repo, you can delete it.
 
 GitHub doesn't upload empty folders. That's fine: a project's folder is created when you upload its first photo.

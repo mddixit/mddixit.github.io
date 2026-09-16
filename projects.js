@@ -52,7 +52,8 @@ window.PROJECTS = [
       "Designed and iterated the robot, contributing to <strong>soft actuator fabrication</strong>, <strong>custom PCB design</strong>, and <strong>closed-loop control</strong>.",
       "Worked on the <strong>neural control</strong> that drives the robot's swallowing behavior.",
       "Prototyped and experimentally evaluated designs, contributing to submissions to <strong>IEEE/RSJ IROS</strong> and <strong>IEEE ICRA</strong>.",
-      "Co-authored and presented the SLUGBOT V2 poster at the <strong>Midwest Robotics Workshop</strong> and the <strong>2026 NIH BRAIN Initiative Conference</strong>."
+      "Co-authored and presented the SLUGBOT V2 poster at the <strong>Midwest Robotics Workshop</strong> and the <strong>2026 NIH BRAIN Initiative Conference</strong>.",
+      "Separately, built a <strong>computer-vision pipeline in OpenCV</strong> to automatically characterize the locomotion of the lab's snake robot."
     ],
     results: [
       { value: "6 → 30.5 mm", label: "grasper translation, V1 → V2" },
@@ -60,7 +61,7 @@ window.PROJECTS = [
       { value: "2", label: "conference posters in 2026" }
     ],
     skills: ["Soft pneumatic actuators", "McKibben & pouch actuators", "Bio-inspired design", "Neuromechanical modeling", "Closed-loop control", "Sensor integration", "Custom PCB design", "Computer vision", "Research communication"],
-    tools: ["OpenCV", "KiCAD", "MATLAB NN", "Inkscape", "Python"],                    // ✏️ add the other tools you used
+    tools: ["OpenCV"],                    // ✏️ add the other tools you used
     learnings: [
       "Why a robot's physical shape matters as much as its controller for closing the sim-to-real gap.",
       "Fabricating and tuning soft pneumatic actuators so they behave like biological muscle.",
@@ -96,43 +97,121 @@ window.PROJECTS = [
   // ------------------------------------------------------------------
   {
     slug: "manta-ray",
-    title: "Soft Robotic Manta Ray",
+    title: "AquaMorph: Soft Robotic Manta Ray",
     label: "Senior Design · Technical Lead",
     color: "blue",
     role: "Technical Lead",
-    org: "Senior Design Capstone, Purdue University",
+    org: "Mechanical Engineering Capstone, Purdue University",
     dates: "Jan – May 2025",
-    team: "Student capstone team",
-    summary: "A silicone manta ray robot designed for 50 m operating depth, with molded soft fins, a custom PCB, and electronics protected for underwater use.",
-    cover: "",
+    team: "Kagan Sears, Grace Olden, Maitreyi Dixit, Somya Jain, Carissa Lukac, Daniel Chen",
+    summary: "A manta ray–inspired underwater robot with soft silicone fin actuators, a sealed body and electronics box, and phone-app control, built for quiet, low-impact ocean observation.",
+    thumb: "images/manta-ray/render.jpg",          // image on the homepage card
+    cover: "images/manta-ray/showcase-team.jpg",  // big image at the top of the project page
+    coverPosition: "50% 62%",
     overview: [
-      "For our senior design capstone, our team built a biomimetic manta ray robot with a molded silicone body, designed to operate at depths of up to <strong>50 m</strong>.",
-      "Working at depth means every component has to withstand pressure and keep water away from the electronics, so we validated each subsystem on its own before running full pool trials."
+      "Oceans cover more than 70% of Earth's surface, yet much of them remains unexplored, and the tools used to study them are often rigid, loud, and bad at moving like the marine life they observe. For our senior capstone, our six-person team set out to build a robot that moves <em>with</em> the water instead of against it.",
+      "<strong>AquaMorph</strong> takes its shape and motion from the manta ray. Soft silicone actuators drive the fins and tail for quiet, fin-based swimming. A fully enclosed, gasketed body protects the electronics, the onboard sensors and a low-light camera, and the robot is driven from a phone app over Bluetooth.",
+      "We backed the design with FEA of the actuators, a simplified CFD study of the flow around the body, noise testing, and underwater tests. We also produced a full drawing package and step-by-step manufacturing plans for every custom part."
+    ],
+    detailSections: [
+      { title: "Design requirements",
+        items: [
+          { title: "Biomimetic motion", text: "≥ 0.25 m/s; neutrally buoyant at 10 m" },
+          { title: "Low disturbance", text: "< 70 dB; 80% visual similarity to marine life" },
+          { title: "Underwater ready", text: "Waterproof to 20 m; 60-minute runtime" },
+          { title: "User friendly", text: "≤ 5 kg; ≤ 2 operators; intuitive controls" },
+          { title: "Data driven", text: "Photo/video, obstacle detection within 5 m, onboard sensors" },
+          { title: "Built to last", text: "≥ 1.5-year lifespan; durable, portable design" }
+        ] },
+      { title: "How AquaMorph works",
+        items: [
+          { title: "Soft fin actuators", text: "Dragon Skin 10 silicone, cast in two-part 3D-printed molds and bonded to 50A silicone wings." },
+          { title: "Sealed body", text: "A 3D-printed PLA body sealed with epoxy, with a neoprene gasket under an M3-screwed lid." },
+          { title: "Electronics box", text: "An inner PLA box with a laser-cut acrylic lid houses the electronics." },
+          { title: "Hydraulic gear pump", text: "A compact, 3D-printable motor-driven gear pump." },
+          { title: "Camera & sensors", text: "A low-light camera under a clear dome port, plus onboard sensors for data collection." },
+          { title: "App control", text: "Bluetooth phone app with forward, reverse and turning controls." }
+        ] }
     ],
     contributions: [
-      "Led the team's technical development as <strong>technical lead</strong>, guiding the mechanical and electrical design.",
-      "Designed <strong>molds in CAD</strong> for casting the silicone body.",
+      // ✏️ Edit these so they describe exactly what YOU did on AquaMorph
+      "Served as <strong>technical lead</strong>, guiding the team's mechanical and electrical design and how the subsystems fit together.",
+      "Created the <strong>main assembly drawing</strong> (with its parts list) and the drawing for the <strong>3D-printable hydraulic gear pump</strong>.",
+      "Designed <strong>molds in CAD</strong> for casting the silicone actuators.",
       "Fabricated a <strong>PCB with an embedded microcontroller</strong> and integrated the onboard electronics.",
-      "Planned and ran <strong>component-level tests</strong> for pressure resistance, structural integrity, movement and electronics protection.",
-      "Validated the full system in <strong>10–12 m pool trials</strong>."
+      "Validated pressure resistance, structural integrity, movement and electronics protection with <strong>component-level tests</strong>, followed by <strong>10–12 m pool trials</strong>."
     ],
     results: [
-      { value: "50 m", label: "design operating depth" },
-      { value: "10–12 m", label: "pool trial depth" }
+      { value: "20 m", label: "waterproofing target" },
+      { value: "10–12 m", label: "pool trial depth" },
+      { value: "10", label: "engineering drawings" },
+      { value: "64", label: "manufacturing operations planned" }
     ],
-    skills: ["Silicone molding & casting", "Mold design", "PCB fabrication", "Embedded systems", "Waterproofing & sealing", "Test planning", "Technical leadership"],
-    tools: [],                            // add the CAD/PCB tools you used
+    skills: ["Silicone casting & mold design", "Waterproof enclosure design", "Engineering drawings & GD&T", "Design for manufacturing", "FEA & CFD", "PCB fabrication", "Embedded systems", "Technical leadership"],
+    tools: ["ANSYS", "Arduino", "Ultimaker S5 (FDM)", "Laser cutter", "Dragon Skin 10 silicone"],   // ✏️ add or remove
     learnings: [
-      "Designing for pressure and waterproofing from day one, rather than adding them at the end.",
-      "Why testing components on their own before system-level trials saves time and hardware.",
-      "Leading a team's technical direction while balancing schedule, budget and design goals."
+      "Designing for waterproofing from day one: gaskets, sealed actuator caps and epoxy coatings can't be tacked on at the end.",
+      "Testing each component before full underwater trials saves both time and hardware.",
+      "Writing drawings and manufacturing plans clear enough that any teammate can build a part the same way.",
+      "Leading a six-person team's technical direction while balancing schedule, budget and design goals."
+    ],
+    videos: [
+      // ✏️ Add your video here once it's converted to MP4 and uploaded (see README), e.g.:
+      // { src: "images/manta-ray/aquamorph-demo.mp4", caption: "AquaMorph swimming test" },
+      // or, if it's on YouTube:
+      // { youtube: "VIDEO_ID", caption: "AquaMorph swimming test" },
+      youtube: "https://youtu.be/2LuZfrOG2Eo", caption: "AquaMorph swimming test"
+    ],
+    docs: {
+      title: "Engineering documentation",
+      intro: "The full drawing package and the manufacturing plan for every custom part. Click a drawing to enlarge it.",
+      drawingSet: "images/manta-ray/aquamorph-drawing-set.pdf",
+      drawings: [
+        { id: "01-main-assembly", title: "Main assembly", note: "Parts list & section view", by: "Maitreyi Dixit", mine: true },
+        { id: "02-body", title: "Body", by: "Carissa Lukac" },
+        { id: "03-lid", title: "Lid", by: "Carissa Lukac" },
+        { id: "04-gasket", title: "Gasket", note: "Rubber sheet", by: "Carissa Lukac" },
+        { id: "05-wing", title: "Wing", note: "50A silicone", by: "Grace Olden" },
+        { id: "06-wing-actuator", title: "Wing actuator", note: "Dragon Skin 10, two-part mold", by: "Grace Olden" },
+        { id: "07-actuator-cap", title: "Actuator cap", note: "Acrylic", by: "Grace Olden" },
+        { id: "08-electronics-box-body", title: "Electronics box: body", by: "Carissa Lukac" },
+        { id: "09-electronics-box-lid", title: "Electronics box: lid", by: "Carissa Lukac" },
+        { id: "10-gear-pump", title: "Hydraulic gear pump", note: "3D-printable", by: "Maitreyi Dixit", mine: true }
+      ].map(d => Object.assign(d, {
+        image: `images/manta-ray/drawings/${d.id}.png`,
+        thumb: `images/manta-ray/drawings/thumbs/${d.id}.jpg`,
+        pdf:   `images/manta-ray/drawings/${d.id}.pdf`
+      })),
+      manufacturing: {
+        data: "images/manta-ray/manufacturing.js",
+        download: "images/manta-ray/aquamorph-manufacturing-operation-sheets.xlsx",
+        downloadLabel: "Excel"
+      }
+    },
+    posters: [
+      { title: "AquaMorph: Emulating Marine Animals with Soft Robotics",
+        venue: "Capstone Senior Design · Spring 2025",
+        text: "Kagan Sears, Grace Olden, <strong>Maitreyi Dixit</strong>, Somya Jain, Carissa Lukac, Daniel Chen",
+        image: "images/manta-ray/aquamorph-poster.jpg",
+        pdf: "images/manta-ray/aquamorph-poster.pdf" }
     ],
     images: [
-      { src: "images/manta-ray/1.jpg", caption: "Final manta ray prototype" },
-      { src: "images/manta-ray/2.jpg", caption: "Silicone casting mold" },
-      { src: "images/manta-ray/3.jpg", caption: "Pool trial" }
+      { group: "Prototype & build", src: "images/manta-ray/showcase-team.jpg", caption: "Presenting AquaMorph with the team (Spring 2025)" },
+      { group: "Prototype & build", src: "images/manta-ray/prototype-underwater-test.jpg", caption: "Prototype during underwater testing" },
+      { group: "Prototype & build", src: "images/manta-ray/printed-actuators.jpg", caption: "Silicone fin actuators", position: "50% 30%" },
+      { group: "Prototype & build", src: "images/manta-ray/render.jpg", caption: "AquaMorph concept render" },
+      { group: "Prototype & build", src: "images/manta-ray/exploded-view.jpg", caption: "Subsystem exploded view", fit: "contain" },
+      { group: "Prototype & build", src: "images/manta-ray/sealing-assembly.jpg", caption: "Lid, gasket and camera dome sealing assembly", fit: "contain" },
+      { group: "Prototype & build", src: "images/manta-ray/app-remote.jpg", caption: "Bluetooth remote-control app", fit: "contain" },
+      { group: "Prototype & build", src: "images/manta-ray/team.jpg", caption: "The AquaMorph team" },
+      { group: "Analysis & testing", src: "images/manta-ray/fea-actuator-deformation.jpg", caption: "FEA: static structural total deformation of an actuator" },
+      { group: "Analysis & testing", src: "images/manta-ray/cfd-velocity-pressure.jpg", caption: "CFD: simplified top-down velocity and pressure field", fit: "contain" },
+      { group: "Analysis & testing", src: "images/manta-ray/noise-testing.jpg", caption: "Noise validation testing: noise level vs. motor speed", fit: "contain" }
     ],
-    links: []
+    links: [
+      { label: "Drawing set (PDF)", url: "images/manta-ray/aquamorph-drawing-set.pdf" },
+      { label: "Poster (PDF)", url: "images/manta-ray/aquamorph-poster.pdf" }
+    ]
   },
 
   // ------------------------------------------------------------------
@@ -294,8 +373,22 @@ window.PROJECTS = [
         image: "images/my-new-project/poster.jpg", pdf: "images/my-new-project/poster.pdf" }
       // interactive poster: { title: "...", venue: "...", interactive: "https://...", embed: true }
     ],
+    thumb: "images/my-new-project/card.jpg",   // (optional) different image for the homepage card
+    detailSections: [                     // (optional) more card sections, each with its own heading
+      { title: "Design requirements", items: [ { title: "Speed", text: "≥ 0.25 m/s" } ] }
+    ],
+    docs: {                               // (optional) engineering drawings + manufacturing plan tabs
+      drawingSet: "images/my-new-project/drawing-set.pdf",
+      drawings: [
+        { id: "part-a", title: "Part A", by: "Your Name", mine: true,
+          image: "images/my-new-project/drawings/part-a.png",
+          thumb: "images/my-new-project/drawings/part-a.png",
+          pdf: "images/my-new-project/drawings/part-a.pdf" }
+      ],
+      manufacturing: { data: "images/my-new-project/manufacturing.js", download: "images/my-new-project/sheets.xlsx" }
+    },
     images: [
-      { src: "images/my-new-project/1.jpg", caption: "Caption" },
+      { src: "images/my-new-project/1.jpg", caption: "Caption", group: "Build" },   // group = optional sub-heading
       { youtube: "VIDEO_ID", caption: "Demo video" }    // (optional) YouTube video
     ],
     links: [                              // (optional) buttons
