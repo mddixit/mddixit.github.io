@@ -158,9 +158,9 @@ window.PROJECTS = [
     videos: [
       // ✏️ Add your video here once it's converted to MP4 and uploaded (see README), e.g.:
       // { src: "images/manta-ray/aquamorph-demo.mp4", caption: "AquaMorph swimming test" },
-      // or, if it's on YouTube:
+      // or, if it's on YouTube (the ID or the full link both work):
       // { youtube: "VIDEO_ID", caption: "AquaMorph swimming test" },
-      youtube: "https://youtu.be/2LuZfrOG2Eo", caption: "AquaMorph swimming test"
+      { youtube: "2LuZfrOG2Eo", caption: "AquaMorph swimming test" },
     ],
     docs: {
       title: "Engineering documentation",

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Project | Maitreyi Dixit</title>
+<title>Maitreyi Dixit — Robotics & Mechanical Engineering</title>
 <meta name="description" content="Maitreyi Dixit: M.S. Mechanical Engineering student at Carnegie Mellon building soft, bio-inspired robots.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%23FF4F5E'/><text x='50' y='68' font-size='52' font-family='Arial' font-weight='900' text-anchor='middle' fill='white'>MD</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -614,14 +614,14 @@ a.card { text-decoration: none; color: inherit; }
 
 <header class="nav">
   <div class="wrap">
-    <a class="logo" href="index.html"><span class="badge">MD</span> Maitreyi Dixit</a>
+    <a class="logo" href="#top"><span class="badge">MD</span> Maitreyi Dixit</a>
     <nav>
       <ul id="menu">
-        <li><a href="index.html#about">About</a></li>
-        <li><a href="index.html#projects">Projects</a></li>
-        <li><a href="index.html#experience">Experience</a></li>
-        <li><a href="index.html#skills">Skills</a></li>
-        <li><a href="index.html#contact">Contact</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
     <div style="display:flex;gap:8px">
@@ -631,14 +631,199 @@ a.card { text-decoration: none; color: inherit; }
   </div>
 </header>
 
-<main id="projectPage">
-  <noscript><div class="wrap" style="padding:80px 0">This page needs JavaScript to show project details. <a href="index.html#projects">Back to projects</a></div></noscript>
+<main id="top">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+    <div class="wrap">
+      <span class="eyebrow"><span class="dot"></span> M.S. Mechanical Engineering · Carnegie Mellon</span>
+      <h1>Hi, I'm <span class="hl">Maitreyi</span>.<br>I build robots<br>that swim.</h1>
+      <p class="lede">Mechanical engineer and roboticist designing <mark>soft, bio-inspired machines</mark>, from a robotic sea slug to a 50&nbsp;m-depth manta ray, and the controls, electronics and ML that bring them to life.</p>
+      <div class="cta">
+        <a class="btn primary" href="#projects">See my work →</a>
+        <a class="btn secondary" href="resume.pdf" target="_blank" rel="noopener">Download résumé</a>
+      </div>
+
+      <div class="stats">
+        <div class="stat reveal"><b>4.0</b><span>GPA at Carnegie Mellon</span></div>
+        <div class="stat reveal"><b>~15×</b><span>faster lab testing throughput</span></div>
+        <div class="stat reveal"><b>20→1</b><span>CAD workflows unified at Cummins</span></div>
+        <div class="stat reveal"><b class="sm">IROS &amp; ICRA</b><span>paper submissions contributed to</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="track">
+      <span>Soft Robotics</span><span class="star">✦</span><span>Controls</span><span class="star">✦</span><span>Machine Learning</span><span class="star">✦</span><span>PCB Design</span><span class="star">✦</span><span>Computer Vision</span><span class="star">✦</span><span>CAD &amp; Simulation</span><span class="star">✦</span><span>Rapid Prototyping</span><span class="star">✦</span>
+      <span>Soft Robotics</span><span class="star">✦</span><span>Controls</span><span class="star">✦</span><span>Machine Learning</span><span class="star">✦</span><span>PCB Design</span><span class="star">✦</span><span>Computer Vision</span><span class="star">✦</span><span>CAD &amp; Simulation</span><span class="star">✦</span><span>Rapid Prototyping</span><span class="star">✦</span>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section class="block" id="about">
+    <div class="wrap">
+      <div class="sec-head"><span class="num">01</span><h2>About me</h2></div>
+      <div class="about-grid">
+        <div class="reveal">
+          <p>I'm a research-track Master's student in Mechanical Engineering at <strong>Carnegie Mellon University</strong>, working in the <strong>Biohybrid and Organic Robotics Group</strong> with Dr. Victoria Webster-Wood.</p>
+          <p>I like working at the point where hardware meets intelligence: molding silicone actuators, laying out custom PCBs, writing closed-loop controllers, and training neural networks so a soft robot can figure out how to move.</p>
+          <p>Before CMU, I earned my B.S. at <strong>Purdue</strong>, did soft-materials research in the Chortos Lab, led a senior design team building an underwater manta ray, and spent six months as a design engineering co-op at <strong>Cummins</strong>.</p>
+        </div>
+        <div class="edu-card reveal">
+          <div class="edu-item">
+            <span class="pill coral">May 2027</span>
+            <h3 style="margin-top:10px">Carnegie Mellon University</h3>
+            <div class="meta">M.S. Mechanical Engineering (Research) · GPA 4.0/4.0</div>
+            <div style="font-size:15px">Modern Control Theory · AI/ML · Robot Dynamics · Robotics Software</div>
+          </div>
+          <div class="edu-item">
+            <span class="pill sun">May 2025</span>
+            <h3 style="margin-top:10px">Purdue University</h3>
+            <div class="meta">B.S. Mechanical Engineering · GPA 3.6/4.0</div>
+            <div style="font-size:15px">Thermo · Fluids · Heat Transfer · Machine Design · Dynamics · Controls</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="block" id="projects" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head"><span class="num">02</span><h2>Selected work</h2></div>
+      <div class="projects" id="projectGrid"></div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section class="block" id="experience" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head"><span class="num">03</span><h2>Experience</h2></div>
+      <div class="timeline">
+        <div class="job reveal" style="--c: var(--teal)">
+          <div class="when">Aug 2025 to present<small>Pittsburgh, PA</small></div>
+          <div>
+            <h3>Research Assistant</h3>
+            <div class="org">Biohybrid &amp; Organic Robotics Group, Carnegie Mellon University</div>
+            <ul>
+              <li>Soft bio-inspired robot design, from fabrication and electronics to control and learning-based locomotion.</li>
+              <li>Contributed to IROS and ICRA submissions; presented at the Midwest Robotics Workshop and the NIH BRAIN Initiative Conference.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="job reveal" style="--c: var(--coral)">
+          <div class="when">Jun to Dec 2024<small>Stoughton, WI</small></div>
+          <div>
+            <h3>Design Engineering Co-op</h3>
+            <div class="org">Cummins Inc.</div>
+            <ul>
+              <li>Automated CAD generation for the Twin Module program with Creo Pro/Program and Visual Basic, merging <strong>15–20 configuration-specific workflows into one</strong>.</li>
+              <li>Designed and validated components with SimSolid PSD and random broadband vibration analysis.</li>
+              <li>Defined tolerances and assembly specs using DVA, GD&amp;T and Creo drawings.</li>
+              <li>Evaluated bolt and canning materials for new aftertreatment assemblies, working with suppliers and cross-functional teams.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="job reveal" style="--c: var(--violet)">
+          <div class="when">Jun 2023 to May 2024<small>West Lafayette, IN</small></div>
+          <div>
+            <h3>Research Assistant</h3>
+            <div class="org">Chortos Laboratory, Purdue University</div>
+            <ul>
+              <li>Led an undergraduate team working alongside graduate researchers, raising experimental throughput ~15×.</li>
+              <li>Built Arduino test systems and custom apparatus for materials degradation studies.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="job reveal" style="--c: var(--sun)">
+          <div class="when">Teaching<small>CMU &amp; Purdue</small></div>
+          <div>
+            <h3>Teaching Assistant</h3>
+            <div class="org">Graduate TA at CMU · Undergraduate TA at Purdue</div>
+            <ul>
+              <li>Graduate TA: Dynamics; Mechanics Modeling with ANSYS; Mazes.</li>
+              <li>Undergraduate TA: First Year Engineering.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="block" id="skills" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head"><span class="num">04</span><h2>Toolbox</h2></div>
+      <div class="skills">
+        <div class="skill-box s1 reveal">
+          <h3>Code, Controls &amp; ML</h3>
+          <div class="chips"><span>Python</span><span>C/C++</span><span>MATLAB</span><span>Simulink</span><span>PyTorch</span><span>OpenCV</span><span>LabVIEW</span><span>LaTeX</span></div>
+        </div>
+        <div class="skill-box s2 reveal">
+          <h3>CAD &amp; Simulation</h3>
+          <div class="chips"><span>SolidWorks</span><span>PTC Creo</span><span>Siemens NX</span><span>Fusion 360</span><span>ANSYS</span><span>SimSolid</span><span>Gazebo</span><span>PTC Windchill</span><span>GD&amp;T</span></div>
+        </div>
+        <div class="skill-box s3 reveal">
+          <h3>Hardware &amp; Fab</h3>
+          <div class="chips"><span>Arduino</span><span>KiCad</span><span>LTSpice</span><span>PCB Design</span><span>Soldering</span><span>3D Printing</span><span>Silicone Molding</span><span>Rapid Prototyping</span></div>
+        </div>
+      </div>
+
+      <div class="beyond">
+        <div class="mini reveal">
+          <div class="icon">🏆</div>
+          <h3>Awards &amp; certifications</h3>
+          <ul>
+            <li>Dean's List &amp; Semester Honors</li>
+            <li>Andrew and Tracy Oxtoby Scholarship</li>
+            <li>Six Sigma Yellow Belt</li>
+            <li>Programming with Arduino Certification</li>
+            <li>CITI Research Training</li>
+          </ul>
+        </div>
+        <div class="mini reveal">
+          <div class="icon">🤝</div>
+          <h3>Leadership</h3>
+          <ul>
+            <li>MechE Graduate Student Org: MS Liaison &amp; Social Chair</li>
+            <li>Founder, Fictional Projects of Purdue</li>
+            <li>Women in Engineering Program tutor &amp; mentor</li>
+            <li>Pi Tau Sigma · ASME · SWE (Medical Devices)</li>
+          </ul>
+        </div>
+        <div class="mini reveal">
+          <div class="icon">💃</div>
+          <h3>Outside the lab</h3>
+          <ul>
+            <li>Dancer with CMU Abhinaya</li>
+            <li>Alpha Theta Delta Design Fraternity</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="block" id="contact" style="padding-top:0">
+    <div class="wrap">
+      <div class="contact reveal">
+        <h2>Let's build something that moves.</h2>
+        <p>I'm open to robotics, controls, and mechanical design roles. Send me an email or connect on LinkedIn.</p>
+        <div class="cta">
+          <a class="btn primary" href="mailto:mddixit@andrew.cmu.edu">✉ mddixit@andrew.cmu.edu</a>
+          <a class="btn secondary" href="https://www.linkedin.com/in/maitreyi-dixit/" target="_blank" rel="noopener">LinkedIn ↗</a>
+          <a class="btn secondary" href="https://github.com/mddixit" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+      </div>
+    </div>
+  </section>
 </main>
 
 <footer>
   <div class="wrap">
     <span>© 2026 Maitreyi Dixit</span>
-    <a href="index.html">Home</a>
+    <a href="#top">Back to top ↑</a>
   </div>
 </footer>
 
