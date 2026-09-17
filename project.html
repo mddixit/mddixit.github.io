@@ -518,6 +518,7 @@ a.card { text-decoration: none; color: inherit; }
 .g-frame.contain { background: #fff; }
 .g-frame.contain img { object-fit: contain; }
 .lightbox.paper img { background: #fff; }
+.docs-tabs[hidden] { display: none; }
 
 /* ---------- Engineering documentation ---------- */
 .p-docs { margin-top: 64px; }
@@ -934,20 +935,21 @@ window.PROJECT_ART = {
     let docsHTML = '';
     if (drawings.length || mfg) {
       const tabs = [];
-      if (drawings.length) tabs.push(['drawings', `Drawings <span class="count">${drawings.length}</span>`]);
+      const single = !(drawings.length && mfg);
+      if (drawings.length) tabs.push(['drawings', `${esc(docs.drawingsLabel || 'Drawings')} <span class="count">${drawings.length}</span>`]);
       if (mfg) tabs.push(['mfg', `Manufacturing plan`]);
       docsHTML = `
         <section class="p-sec p-docs reveal" id="docs">
           <h2>${esc((docs && docs.title) || 'Engineering documentation')}</h2>
           ${docs.intro ? `<p class="docs-intro">${docs.intro}</p>` : ''}
           <div class="docs" style="${cvar}">
-            <div class="docs-tabs" role="tablist">
+              <div class="docs-tabs" role="tablist" ${single ? 'hidden' : ''}>
               ${tabs.map(([k, label], n) => `<button role="tab" type="button" class="docs-tab" data-tab="${k}" aria-selected="${n === 0}">${label}</button>`).join('')}
             </div>
             ${drawings.length ? `
             <div class="docs-panel" data-panel="drawings" role="tabpanel">
               <div class="dv">
-                <button class="dv-stage" type="button" aria-label="Enlarge drawing">
+                  <button class="dv-stage" type="button" aria-label="Enlarge" style="aspect-ratio:${+docs.aspect || 1.414}">
                   <img alt="" src="${esc(drawings[0].image)}">
                   <span class="dv-zoom">⤢ Enlarge</span>
                 </button>
@@ -963,12 +965,12 @@ window.PROJECT_ART = {
                 <div class="dv-strip">
                   ${drawings.map((d, n) => `
                     <button class="dv-thumb" type="button" data-n="${n}" aria-label="${esc(d.title)}">
-                      <img src="${esc(d.thumb || d.image)}" alt="" loading="lazy">
+                      <img src="${esc(d.thumb || d.image)}" alt="" loading="lazy" style="aspect-ratio:${+docs.aspect || 1.414}">
                       <span>${esc(d.title)}</span>
                     </button>`).join('')}
                 </div>
               </div>
-              ${docs.drawingSet ? `<p class="docs-foot"><a class="btn secondary" href="${esc(docs.drawingSet)}" target="_blank" rel="noopener">Download full drawing set (PDF, ${drawings.length} sheets)</a></p>` : ''}
+              ${docs.drawingSet ? `<p class="docs-foot"><a class="btn secondary" href="${esc(docs.drawingSet)}" target="_blank" rel="noopener">${esc(docs.drawingSetLabel || `Download full drawing set (PDF, ${drawings.length} sheets)`)}</a></p>` : ''}
             </div>` : ''}
             ${mfg ? `
             <div class="docs-panel" data-panel="mfg" role="tabpanel" ${drawings.length ? 'hidden' : ''}>

@@ -253,41 +253,125 @@ window.PROJECTS = [
   },
 
   // ------------------------------------------------------------------
-  {
-    slug: "polymer-test-systems",
-    title: "Polymer Degradation Test Systems",
+    {
+    slug: "biopolymer-coatings",
+    title: "Corrosion-Resistant Biopolymer Coatings",
     label: "Research · Purdue",
     color: "violet",
     role: "Undergraduate Research Assistant",
     org: "Chortos Laboratory, Purdue University",
     dates: "Jun 2023 – May 2024",
-    team: "Advisor: Dr. Alex Chortos",
-    summary: "Arduino-based test rigs and custom apparatus for studying how antioxidant-polymer-coated metals degrade, which raised the lab's testing throughput about 15×.",
-    cover: "",
+    team: "PI: Dr. Alex Chortos · Graduate mentor: Michael Sotzing · with Akash Darbha & Caroline Bodnar",
+    summary: "A high-throughput corrosion test rig for measuring how well hemp-derived poly(cannabinoid) coatings protect the copper traces in transient electronics, benchmarked against PCL.",
+    thumb: "images/biopolymer-coatings/milled-fixture-in-chamber.jpg",
+    thumbPosition: "50% 55%",
+    cover: "images/biopolymer-coatings/design-expo.jpg",
+    coverPosition: "50% 55%",
     overview: [
-      "In the Chortos Lab, I worked on experiments studying how metals coated with antioxidant polymers degrade over time.",
-      "My focus was the test hardware: building systems that let the team run more experiments, more reliably."
+      "E-waste is the fastest-growing solid waste stream in the world. <strong>Transient electronics</strong> are designed to work for a set period and then degrade, but while they're in use they still need a barrier coating to keep their circuits from corroding.",
+      "<strong>Poly(cannabinoid)s (pCBDs)</strong> are an emerging class of hemp-derived biopolymers that are hydrophobic, naturally antioxidative and degradable without additives. This project set out to measure how well pCBD coatings protect metal from corrosion, compared with the benchmark polymer <strong>polycaprolactone (PCL)</strong>.",
+      "To do that, we built, and repeatedly improved, a test setup based on the <strong>Flower of Sulfur test (ASTM B809-95)</strong>. Sulfur vapor at high temperature compresses years of corrosion into days, while an Arduino logs the electrical resistance of coated copper traces as they corrode. A separate water-absorption test (based on ASTM D570) checked how much water the coatings take up."
+    ],
+    detailSections: [
+      { title: "How the test works",
+        items: [
+          { title: "1 · Coat", text: "Copper strips made by physical vapor deposition (PVD), stored in argon, are spin-coated at ~2000 rpm with PCL in toluene (1:3) or with pCBD, then cured." },
+          { title: "2 · Mount", text: "The coated glass slides are clamped onto a test fixture that makes electrical contact with every copper trace." },
+          { title: "3 · Corrode", text: "Samples go into a Flower of Sulfur chamber, where sulfur vapor speeds corrosion up from years to days." },
+          { title: "4 · Measure", text: "An Arduino with multiplexers and an analog-to-digital converter (ADC) logs the resistance of up to 24 samples every second. Rising resistance shows corrosion." }
+        ] },
+      { title: "Iterating on the setup",
+        items: [
+          { title: "Scaling the electronics", text: "Went from 1 sample at a time to 24 using four multiplexers (one for reference resistors, three for samples) and an ADC." },
+          { title: "Even corrosion", text: "Samples corroded unevenly, so we added a small fan to circulate the sulfur vapor inside the chamber." },
+          { title: "Stronger trays", text: "Resin-printed trays bent and cracked when clamped. Thicker trays closed the gaps with the glass and held up during testing." },
+          { title: "Milled PCB fixture", text: "Replaced the trays and washers with a milled copper-PCB board and soldered wires, removing the parts that bent or broke." },
+          { title: "Reliable contacts", text: "Tried silver paste, solder, ring crimps and anisotropic conductive film (ACF). The silver epoxy method gave the most control and the easiest troubleshooting." },
+          { title: "Checking accuracy", text: "Validated the readout against 10–220 Ω resistors. Percent error fell as resistance increased." }
+        ] }
     ],
     contributions: [
-      "Built <strong>Arduino-based test systems</strong> to characterize degradation of antioxidant-polymer-coated metals.",
-      "Designed, fabricated and validated <strong>custom apparatus</strong> using SolidWorks, 3D printing and circuit assembly/soldering.",
-      "<strong>Led an undergraduate team</strong> and coordinated with graduate researchers.",
-      "Increased experimental testing throughput by <strong>~15×</strong>."
+      "<strong>Led the undergraduate team</strong> and coordinated with graduate researchers.",
+      "Built the <strong>Arduino-based test system</strong> and helped scale it to <strong>24 samples at once</strong>, raising experimental throughput by about <strong>15×</strong>.",
+      "Designed, fabricated and iterated the <strong>test fixtures</strong> using SolidWorks, 3D printing, circuit assembly and soldering.",
+      "Refined the Flower of Sulfur method by <strong>standardizing coating thickness</strong> and improving vapor circulation and electrical contacts.",
+      "Ran <strong>resistance and water-absorption tests</strong> comparing pCBD, PCL and PCL with antioxidant additives.",
+      "Presented the work as <strong>lead author</strong> of the Design Expo poster, and co-presented the fall research update."
     ],
     results: [
-      { value: "~15×", label: "increase in testing throughput" }
+      { value: "~75%", label: "more time before corrosion with pCBD vs. PCL" },
+      { value: "24", label: "samples measured at once (up from 1)" },
+      { value: "~15×", label: "higher testing throughput" }
     ],
-    skills: ["Test rig design", "Data acquisition", "Mechanical design", "3D printing", "Soldering & circuit assembly", "Team leadership"],
-    tools: ["Arduino", "SolidWorks"],
+    skills: ["Corrosion testing (ASTM B809)", "Test method development", "Fixture design", "Arduino data acquisition", "Multiplexed circuits", "Spin coating", "Materials characterization", "Research communication", "Team leadership"],
+    tools: ["Arduino", "SolidWorks", "Resin 3D printing", "Spin coater", "Flower of Sulfur chamber"],
     learnings: [
-      "How to build test fixtures that produce repeatable, trustworthy data.",
-      "How much good automation can multiply a lab's research output.",
-      "Coordinating work between undergraduate and graduate researchers."
+      "Building a test method is iterative. Each fixture change (the fan, the trays, the PCB, the contacts) fixed a failure in the version before it.",
+      "Reliable electrical contact is often the hardest part of a measurement setup.",
+      "Validate your instruments against known references before trusting the data.",
+      "Small effects need enough signal: a ~2% water-absorption change was close to the limit of the scale, so bigger, heavier samples were needed.",
+      "Report early results honestly. Promising data (pCBD delayed corrosion) came with open questions (2–4 of every 6 samples disconnected)."
+    ],
+    videos: [],
+    docs: {
+      title: "Research presentation",
+      intro: "The fall research update: motivation, method, each setup iteration and next steps. Click a slide to enlarge it.",
+      drawingsLabel: "Slides",
+      aspect: 16 / 9,
+      drawingSet: "images/biopolymer-coatings/pcbd-coating-slides.pdf",
+      drawingSetLabel: "Download slides (PDF)",
+      drawings: [
+        { title: "Corrosion-Resistant Poly(cannabinoid) Coating", note: "Caroline Bodnar & Maitreyi Dixit · Nov 2023" },
+        { title: "Overview" },
+        { title: "Motivation" },
+        { title: "Introduction to pCBDs" },
+        { title: "Methodology" },
+        { title: "Preliminary status" },
+        { title: "Arduino + circuit" },
+        { title: "Iteration 1: chamber fan" },
+        { title: "Iteration 2: 3D-printed trays" },
+        { title: "Iteration 3: new contact methods" },
+        { title: "Iteration 3: milled PCB fixture" },
+        { title: "Testing & error analysis" },
+        { title: "Next steps" },
+        { title: "Conclusions & future work" },
+        { title: "References" }
+      ].map((d, n) => Object.assign(d, {
+        image: `images/biopolymer-coatings/slides/slide-${String(n + 1).padStart(2, "0")}.jpg`,
+        thumb: `images/biopolymer-coatings/slides/thumbs/slide-${String(n + 1).padStart(2, "0")}.jpg`
+      }))
+    },
+    posters: [
+      { title: "Corrosion Resistant Biopolymer Coatings",
+        venue: "Design Expo · Purdue University",
+        text: "Developing a method to characterize the properties of polycannabinoids in transient electronics applications.<br><strong>Maitreyi Dixit</strong>, Akash Darbha · PI: Dr. Alex Chortos · Graduate student: Michael Sotzing",
+        image: "images/biopolymer-coatings/biopolymer-coatings-poster.jpg",
+        pdf: "images/biopolymer-coatings/biopolymer-coatings-poster.pdf" }
     ],
     images: [
-      { src: "images/polymer-test-systems/1.jpg", caption: "Test apparatus" }
+      { group: "Results", src: "images/biopolymer-coatings/result-improved-method.jpg", caption: "Resistance over time, PCL vs. pCBD (improved method)", fit: "contain" },
+      { group: "Results", src: "images/biopolymer-coatings/result-old-method.jpg", caption: "Resistance over time, PCL vs. pCBD (original method)", fit: "contain" },
+      { group: "Results", src: "images/biopolymer-coatings/corroded-pcl-vs-pcbd.jpg", caption: "Corroded samples: PCL (left) and pCBD (right)", fit: "contain" },
+      { group: "Results", src: "images/biopolymer-coatings/result-antioxidants.jpg", caption: "PCL with antioxidant additives (improved method)", fit: "contain" },
+      { group: "Results", src: "images/biopolymer-coatings/result-water-absorption.jpg", caption: "PCL water absorption: change in mass over 24–96 h", fit: "contain" },
+      { group: "Results", src: "images/biopolymer-coatings/result-error-testing.jpg", caption: "Readout error vs. reference resistance", fit: "contain" },
+      { group: "Test setup & iterations", src: "images/biopolymer-coatings/milled-fixture-in-chamber.jpg", caption: "Milled PCB fixture with coated samples" },
+      { group: "Test setup & iterations", src: "images/biopolymer-coatings/multiplexer-board.jpg", caption: "24-channel multiplexer circuit board" },
+      { group: "Test setup & iterations", src: "images/biopolymer-coatings/fos-chamber-arduino.jpg", caption: "Flower of Sulfur chamber with Arduino readout" },
+      { group: "Test setup & iterations", src: "images/biopolymer-coatings/chamber-fan.jpg", caption: "Fan added to circulate sulfur vapor" },
+      { group: "Test setup & iterations", src: "images/biopolymer-coatings/tray-solidworks.jpg", caption: "Redesigned tray in SolidWorks", fit: "contain" },
+      { group: "Test setup & iterations", src: "images/biopolymer-coatings/resin-tray.jpg", caption: "Thicker resin-printed tray" },
+      { group: "Test setup & iterations", src: "images/biopolymer-coatings/milled-fixture-back.jpg", caption: "Back of the milled fixture with soldered wires" },
+      { group: "Test setup & iterations", src: "images/biopolymer-coatings/acf-bonding.jpg", caption: "Troubleshooting ACF contacts with thermocompression bonding" },
+      { group: "Test setup & iterations", src: "images/biopolymer-coatings/error-testing-resistors.jpg", caption: "Error testing with reference resistors" },
+      { group: "Test setup & iterations", src: "images/biopolymer-coatings/silver-epoxy-samples.jpg", caption: "Samples wired with the silver epoxy method" },
+      { group: "Test setup & iterations", src: "images/biopolymer-coatings/water-absorption-test.jpg", caption: "Water absorption test (based on ASTM D570)" },
+      { group: "At the Design Expo", src: "images/biopolymer-coatings/design-expo.jpg", caption: "Presenting the poster with Akash Darbha" }
     ],
-    links: []
+    links: [
+      { label: "Poster (PDF)", url: "images/biopolymer-coatings/biopolymer-coatings-poster.pdf" },
+      { label: "Slides (PDF)", url: "images/biopolymer-coatings/pcbd-coating-slides.pdf" }
+    ]
   },
 
   // ------------------------------------------------------------------
