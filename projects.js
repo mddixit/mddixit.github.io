@@ -408,6 +408,125 @@ window.PROJECTS = [
     ],
     images: [],                           // no gallery for this one
     links: []
+  },
+
+  // ------------------------------------------------------------------
+  {
+    slug: "mamba-5",
+    title: "Mamba #5: Flying-Snake-Inspired Soft Robot",
+    label: "Course Project · CMU Soft Robots",
+    color: "blue",
+    role: "Team Member · Soft Actuator Design & Fabrication",
+    org: "Soft Robots: Mechanics, Design and Modeling, Carnegie Mellon University",
+    dates: "Fall 2026",
+    team: "Sofia Loya, Maitreyi Dixit, Alex Scott, Yuchen Yang",
+    summary: "A soft robotic cross-section inspired by the flying snake <em>Chrysopelea paradisi</em>, built to flatten into a wing-like shape for gliding, with the long-term goal of monitoring forests with minimal disturbance.",
+    cover: "images/mamba-5/snake-glide-cover.jpg",
+    coverPosition: "50% 50%",
+    overview: [
+      "Forests are declining faster than people can monitor them, and robots that survey them need to reach remote canopies without disturbing wildlife. <em>Chrysopelea paradisi</em>, the flying snake, glides between trees by splaying its ribs to flatten its round body into a concave, <strong>wing-like cross-section</strong>.",
+      "<strong>Mamba #5</strong> proposes a snake-like robot built from cross-sections that can reproduce that shape change. We focused on a single vertebra, using rib structures driven by soft pneumatic actuators, and used <strong>lift and drag coefficients</strong> compared with published flying-snake data as the figure of merit."
+    ],
+    detailsTitle: "Actuators we built and tested",
+    details: [
+      { title: "Silicone pre-curved actuator", text: "A PneuNet-style actuator cast in Ecoflex 00-30 that rests as a semi-circle and unrolls into the target shape. Reliable and repeatable, but slow to fabricate." },
+      { title: "Pouch actuator", text: "Multi-chamber pouches welded from TPU-coated nylon with an iron. They drove the ribs well, but consistent quality was hard to achieve." },
+      { title: "3D-printed TPU actuator", text: "FDM-printed pneumatic bellows. Several print failure modes prevented an airtight seal, so we moved away from this approach." },
+      { title: "Rigid ribs", text: "SLA-printed ribs with ball-and-socket joints, restricted to a single plane for our one-vertebra scope." }
+    ],
+    contributions: [
+      "Designed and fabricated <strong>all of the soft actuators</strong>: the <strong>silicone pre-curved actuator</strong> (mold design, casting, degassing and sealing), the <strong>pouch actuators</strong> and the <strong>3D-printed TPU actuator</strong>.",
+      "Put in the most work on the <strong>silicone actuator</strong>, which proved the most reliable and repeatable.",
+      "Compared the actuator options and documented what worked and what failed.",
+      "Contributed to the project's <strong>conceptualization, investigation, project administration</strong> and the <strong>midterm report</strong>."
+    ],
+    results: [
+      { value: "3", label: "actuator designs prototyped" },
+      { value: "2", label: "rib structures tested" }
+    ],
+    skills: ["Soft pneumatic actuators", "Silicone casting", "Mold design", "3D printing (FDM & SLA)", "Bio-inspired design", "Technical writing"],
+    tools: ["Ecoflex 00-30", "SolidWorks", "Prusa MK4S", "SLA printing"],
+    learnings: [
+      "Why fabrication repeatability matters as much as the design when you build soft actuators.",
+      "How even small changes in shape can noticeably change aerodynamic performance.",
+      "Using a failed approach (airtight TPU printing) to decide which actuator to pursue."
+    ],
+    images: [
+      { group: "The inspiration", src: "images/mamba-5/snake-cross-section.jpg", caption: "Flying snake in glide, with its flattened body and cross-section. Image from Holden et al., J. Exp. Biol., 2014.", fit: "contain" },
+      { group: "Silicone actuator", src: "images/mamba-5/silicone-mold-print.jpg", caption: "Mold for the pre-curved actuator, designed in CAD and 3D printed" },
+      { group: "Silicone actuator", src: "images/mamba-5/silicone-actuator-cast.jpg", caption: "Ecoflex 00-30 actuator curing in the mold" },
+      { group: "Silicone actuator", src: "images/mamba-5/silicone-actuator-cured.jpg", caption: "Cured pre-curved actuator, before sealing and attaching the air inlet" },
+      { group: "Pouch actuator", src: "images/mamba-5/pouch-actuator.jpg", caption: "Single-chamber pouch actuator welded from TPU-coated nylon" },
+      { group: "Pouch actuator", src: "images/mamba-5/multi-chamber-pouch.jpg", caption: "Multi-chamber pouch actuator" },
+      { group: "3D-printed TPU and ribs", src: "images/mamba-5/tpu-actuator-cad.jpg", caption: "CAD model of the printed TPU actuator", fit: "contain" },
+      { group: "3D-printed TPU and ribs", src: "images/mamba-5/tpu-actuator-print.jpg", caption: "Printed TPU actuator, which could not hold an airtight seal" },
+      { group: "3D-printed TPU and ribs", src: "images/mamba-5/rigid-rib.jpg", caption: "SLA-printed rigid rib with ball-and-socket joint" }
+    ],
+    links: [
+      { label: "Midterm report (PDF)", url: "images/mamba-5/midterm-report.pdf" }
+    ]
+  },
+
+  // ------------------------------------------------------------------
+  {
+    slug: "medshelf",
+    title: "MedShelf: Vision-Guided Clinical Supply Bin Retrieval",
+    label: "Course Project · 16-709 Robotics Foundations",
+    color: "teal",
+    role: "Team Member · Motion Planning & Manipulation",
+    org: "16-709 Robotics Foundations: Software Engineering (Track 1: Everything ROS 2), Carnegie Mellon University",
+    dates: "Fall 2026",
+    team: "Maitreyi Dixit, Michael Gomez, Sofia Loya",
+    summary: "A ROS 2 and Gazebo system where a UR5 arm identifies a requested supply bin on a shelf with a camera, picks it, and delivers it to a tray, with 9/9 correct end-to-end deliveries in testing.",
+    cover: "images/medshelf/medshelf-demo-thumb.jpg",
+    overview: [
+      "Clinical supply rooms store supplies in shelf-mounted open-front bins, and finding and retrieving the right one is repetitive work that needs accurate selection. <strong>MedShelf</strong> simulates a robot doing that job: given a requested supply, it finds the right slot in a <strong>3×3 shelf grid</strong>, grasps the bin by its front handle, and stages it in a delivery tray.",
+      "A <strong>UR5 arm with a Robotiq 2F-85 gripper</strong> runs in Gazebo Harmonic on ROS 2 Jazzy. A color-segmentation perception node reads a fixed RGB camera, a task state machine sequences each request, and <strong>MoveIt 2</strong> plans collision-free paths while <strong>ros2_control</strong> executes them."
+    ],
+    detailsTitle: "How the system works",
+    details: [
+      { title: "Perception", text: "Color segmentation on a fixed RGB camera finds the requested bin and its shelf slot, and publishes the matching grasp pose." },
+      { title: "Task logic", text: "A state machine handles request validation, detection, planning, execution, placement verification and failure reporting." },
+      { title: "Motion planning", text: "MoveIt 2 plans collision-free paths from the arm's pose to the bin handle and on to the tray." },
+      { title: "Control", text: "ros2_control and gz_ros2_control drive the arm's six joints with trajectory controllers, plus a gripper controller." },
+      { title: "Simulation", text: "A custom Gazebo world with the 3×3 bin grid, delivery tray and camera, running in WSL2 Ubuntu 24.04." }
+    ],
+    videos: [
+      { src: "images/medshelf/medshelf-demo.mp4", poster: "images/medshelf/medshelf-demo-thumb.jpg",
+        caption: "Full final demo: the complete ROS 2 pipeline detecting bins and delivering them to the tray in Gazebo." },
+      { src: "images/medshelf/arm-moving.mp4", poster: "images/medshelf/arm-thumb.jpg",
+        caption: "Checking the merged UR5 + Robotiq model in RViz by moving each joint, an early step to verify the robot description." }
+    ],
+    contributions: [
+      "Built the <strong>MoveIt 2 pick-and-place motion sequence</strong> and the <strong>grasp-pose publishing</strong> that connects perception to the arm.",
+      "Integrated <strong>joint-state feedback</strong> from the robot.",
+      "Tuned <strong>motion reliability, grasp and constraints</strong> so the arm could repeatedly lift bins out of the shelf.",
+      "Designed the <strong>environment CAD</strong> (tray, bins and workspace) with teammate Sofia Loya."
+    ],
+    results: [
+      { value: "9 / 9", label: "bins delivered to the right tray" },
+      { value: "100%", label: "bin identification accuracy" },
+      { value: "8 / 9", label: "first-try motion planning successes" },
+      { value: "50.6 s", label: "mean pick time" }
+    ],
+    skills: ["ROS 2", "MoveIt 2 motion planning", "Gazebo simulation", "ros2_control", "Grasp tuning", "CAD for simulation", "Systems integration", "Team software engineering"],
+    tools: ["ROS 2 Jazzy", "Gazebo Harmonic", "MoveIt 2", "ros2_control", "UR5", "Robotiq 2F-85", "RViz", "WSL2"],
+    learnings: [
+      "Splitting a robot system into nodes so perception, planning and control can be built and tested separately.",
+      "Tuning a grasp for reliability. Our 6.23 cm grasp offset came from the simulated gripper's DynamicJoint mechanism, not the planner.",
+      "Setting measurable targets (≥70% success, under 60 s per pick) and then testing against them with nine trials."
+    ],
+    images: [
+      { group: "System in action", src: "images/medshelf/gazebo-workcell.jpg", caption: "The Gazebo workcell: UR5 arm, 3×3 bin shelf and table" },
+      { group: "System in action", src: "images/medshelf/perception-bin-detection.jpg", caption: "Perception node labeling each shelf slot by color and supply type" },
+      { group: "System in action", src: "images/medshelf/moveit-rviz-planning.jpg", caption: "MoveIt 2 planning the arm's path in RViz" },
+      { group: "System in action", src: "images/medshelf/bin-delivered-to-tray.jpg", caption: "A requested bin pulled off the shelf and staged on the table" },
+      { group: "Results", src: "images/medshelf/trial-results.jpg", caption: "Terminal output from the 9-trial test run", fit: "contain" }
+    ],
+    links: [
+      { label: "Code on GitHub", url: "https://github.com/sofia-loya/MedShelf" },
+      { label: "Final presentation (PDF)", url: "images/medshelf/medshelf-final-slides.pdf" }
+    ]
   }
 
 ];
